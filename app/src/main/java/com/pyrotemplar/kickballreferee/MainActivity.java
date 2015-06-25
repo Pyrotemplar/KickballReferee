@@ -2,21 +2,26 @@ package com.pyrotemplar.kickballreferee;
 
 import android.app.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
     private static final String LOG_TAG = "MainActivity";
     private static final int REQUEST_CODE = 1;
+
 
     Button team1ScoreMinusButton;
     Button team1ScorePlusButton;
@@ -34,8 +39,8 @@ public class MainActivity extends Activity {
     Button inningPlugButton;
 
 
-    EditText team1NameTextView;
-    EditText team2NameTextView;
+    TextView team1NameTextView;
+    TextView team2NameTextView;
     TextView team1ScoreTextView;
     TextView team2ScoreTextView;
     TextView ballCountTextView;
@@ -43,6 +48,8 @@ public class MainActivity extends Activity {
     TextView foulCountTextView;
     TextView outCountTextView;
     TextView inningTextView;
+
+    String teamNameString = null;
 
     int team1Score;
     int team2Score;
@@ -61,8 +68,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        team1NameTextView = (EditText) findViewById(R.id.team1Name);
-        team2NameTextView = (EditText) findViewById(R.id.team2Name);
+        team1NameTextView = (TextView) findViewById(R.id.team1Name);
+        team2NameTextView = (TextView) findViewById(R.id.team2Name);
         team1ScoreTextView = (TextView) findViewById(R.id.team1Score);
         team2ScoreTextView = (TextView) findViewById(R.id.team2Score);
         ballCountTextView = (TextView) findViewById(R.id.ballText);
@@ -94,6 +101,8 @@ public class MainActivity extends Activity {
         team1NameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                editTeamName(v);
+
                 Log.d(LOG_TAG, "Long Click for Team1NameView");
                 return false;
             }
@@ -102,6 +111,8 @@ public class MainActivity extends Activity {
         team2NameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                editTeamName(v);
+
                 Log.d(LOG_TAG, "Long Click for Team2NameView");
                 return false;
             }
@@ -221,7 +232,7 @@ public class MainActivity extends Activity {
         inningMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inning >= 1 ) {
+                if (inning >= 1) {
                     if (topOrBot == 1 && inning != 1) {
                         inning--;
                         topOrBot = 2;
@@ -261,6 +272,13 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d(LOG_TAG,"OnRsume is called");
+    }
+
+
 
     private void initializeCountFields() {
         team1Score = 0;
@@ -274,5 +292,49 @@ public class MainActivity extends Activity {
 
     }
 
+    private void editTeamName(final View v) {
+
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.team_name_promp, null);
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // get user input and set it to result
+                                // edit text
+                                if(v.getId() == R.id.team1Name)
+                                 team1NameTextView.setText(userInput.getText().toString());
+                                else if (v.getId() == R.id.team2Name)
+                                    team2NameTextView.setText(userInput.getText().toString());
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
 
 }

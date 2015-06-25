@@ -24,24 +24,22 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <TextView
             android:id="@+id/team1Name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:editable="false"
             android:gravity="center"
             android:longClickable="true"
             android:text="Team 1"
             android:textColor="@color/white"
             android:textSize="30dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/team2Name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:editable="false"
             android:gravity="center"
             android:longClickable="true"
             android:text="Team 2"
