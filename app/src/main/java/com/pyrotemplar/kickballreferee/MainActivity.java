@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener {
     private static final String LOG_TAG = "MainActivity";
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
     private static final String AUTOMODE = "AutoMode";
@@ -107,7 +107,8 @@ public class MainActivity extends Activity {
         team2NameTextView.setText(teamNameString);
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
-
+        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
+        autoMode = prefs.getBoolean(AUTOMODE, false);
 
         team1NameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -119,9 +120,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
-        autoMode = prefs.getBoolean(AUTOMODE, false);
-
         team2NameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -132,206 +130,21 @@ public class MainActivity extends Activity {
             }
         });
 
-        team1ScoreMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (team1Score > 0)
-                    team1Score--;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-            }
-        });
-        team1ScorePlusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                team1Score++;
-                if (autoMode)
-                    autoMode();
-
-
-                updateFields();
-            }
-        });
-        team2ScoreMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (team2Score > 0)
-                    team2Score--;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-            }
-        });
-        team2ScorePlusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                team2Score++;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-
-            }
-        });
-
-        strikeButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (strikeCount < 3)
-                    strikeCount++;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-            }
-        });
-        strikeMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (strikeCount > 0)
-                    strikeCount--;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-            }
-        });
-        ballButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (ballCount < 4)
-                    ballCount++;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-
-            }
-        });
-        ballMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (ballCount > 0)
-                    ballCount--;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-
-            }
-        });
-        foulButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (threeFoulOption) {
-                    if (foulCount < 3)
-                        foulCount++;
-                } else {
-                    if (foulCount < 4)
-                        foulCount++;
-                }
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-
-
-            }
-        });
-        foulMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (foulCount > 0)
-                    foulCount--;
-                if (autoMode)
-                    autoMode();
-
-
-                updateFields();
-            }
-        });
-        outButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (outCount < 3)
-                    outCount++;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-            }
-        });
-        outMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (outCount > 0)
-                    outCount--;
-                if (autoMode)
-                    autoMode();
-
-                updateFields();
-
-            }
-        });
-        inningMinusButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (inning >= 1) {
-                    if (topOrBot == 1 && inning != 1) {
-                        inning--;
-                        topOrBot = 2;
-                    } else if (topOrBot == 2)
-                        topOrBot = 1;
-
-                    if (autoMode)
-                        autoMode();
-
-                    updateFields();
-                }
-            }
-        });
-        inningPlugButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (autoMode) {
-                    autoMode();
-                } else {
-                    if (topOrBot == 1) {
-                        topOrBot = 2;
-                    } else if (topOrBot == 2) {
-                        inning++;
-                        topOrBot = 1;
-                    }
-                }
-                if (autoMode)
-                    autoMode();
-                updateFields();
-            }
-        });
-
-
-        settingButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), Settings.class));
-                Log.d(LOG_TAG, "Settings Button Pressed");
-            }
-        });
-
+        team1ScoreMinusButton.setOnClickListener(this);
+        team1ScorePlusButton.setOnClickListener(this);
+        team2ScoreMinusButton.setOnClickListener(this);
+        team2ScorePlusButton.setOnClickListener(this);
+        strikeButton.setOnClickListener(this);
+        strikeMinusButton.setOnClickListener(this);
+        ballButton.setOnClickListener(this);
+        ballMinusButton.setOnClickListener(this);
+        foulButton.setOnClickListener(this);
+        foulMinusButton.setOnClickListener(this);
+        outButton.setOnClickListener(this);
+        outMinusButton.setOnClickListener(this);
+        inningMinusButton.setOnClickListener(this);
+        inningPlugButton.setOnClickListener(this);
+        settingButton.setOnClickListener(this);
     }
 
 
@@ -341,7 +154,6 @@ public class MainActivity extends Activity {
         updateFields();
         Log.d(LOG_TAG, "OnRsume is called");
     }
-
 
     protected static void initializeCountFields() {
         team1Score = 0;
@@ -370,7 +182,6 @@ public class MainActivity extends Activity {
             inningTextView.setText("TOP " + String.valueOf(inning));
         else if (topOrBot == 2)
             inningTextView.setText("BOTTOM " + String.valueOf(inning));
-
     }
 
     private void autoMode() {
@@ -464,4 +275,121 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.team1ScoreMinus: {
+                if (team1Score > 0)
+                    team1Score--;
+                break;
+            }
+            case R.id.team1ScorePlus: {
+                team1Score++;
+                break;
+            }
+            case R.id.team2ScoreMinus: {
+                if (team2Score > 0)
+                    team2Score--;
+                break;
+            }
+            case R.id.team2ScorePlus: {
+                team2Score++;
+                break;
+            }
+            case R.id.ballButtonMinus: {
+                if (ballCount > 0)
+                    ballCount--;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.ballButton: {
+                if (ballCount < 4)
+                    ballCount++;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.strikeButtonMinus: {
+                if (strikeCount > 0)
+                    strikeCount--;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.strikeButton: {
+                if (strikeCount < 3)
+                    strikeCount++;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.foulButtonMinus: {
+                if (foulCount > 0)
+                    foulCount--;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.foulButton: {
+                if (threeFoulOption) {
+                    if (foulCount < 3)
+                        foulCount++;
+                } else {
+                    if (foulCount < 4)
+                        foulCount++;
+                }
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.outButtonMinus: {
+                if (outCount > 0)
+                    outCount--;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.outButton: {
+                if (outCount < 3)
+                    outCount++;
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.inningMinusButton: {
+                if (inning >= 1) {
+                    if (topOrBot == 1 && inning != 1) {
+                        inning--;
+                        topOrBot = 2;
+                    } else if (topOrBot == 2)
+                        topOrBot = 1;
+                }
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.inningPlusButton: {
+                if (autoMode) {
+                    autoMode();
+                } else {
+                    if (topOrBot == 1) {
+                        topOrBot = 2;
+                    } else if (topOrBot == 2) {
+                        inning++;
+                        topOrBot = 1;
+                    }
+                }
+                if (autoMode)
+                    autoMode();
+                break;
+            }
+            case R.id.settingButton: {
+                startActivity(new Intent(v.getContext(), Settings.class));
+                break;
+            }
+            default:
+        }
+        updateFields();
+    }
 }
