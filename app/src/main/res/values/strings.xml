@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Kickball Referee</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="reset">Reset</string>
+    <string name="auto_mode">Automatic Mode</string>
+    <string name="number_of_foul">Number of Fouls</string>
+    <string name="threeFouls">3 Fouls</string>
+    <string name="fourFouls">4 Fouls</string>
+
+
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
 </resources>

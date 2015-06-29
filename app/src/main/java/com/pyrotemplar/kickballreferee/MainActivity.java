@@ -4,8 +4,11 @@ import android.app.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
     private static final String LOG_TAG = "MainActivity";
-    private static final int REQUEST_CODE = 1;
+    private static final String THREE_FOULS_OPTION = "ThreefoulOption";
+    private static final String AUTOMODE = "AutoMode";
 
+    private SharedPreferences prefs = null;
 
     Button team1ScoreMinusButton;
     Button team1ScorePlusButton;
@@ -49,16 +53,19 @@ public class MainActivity extends Activity {
     TextView outCountTextView;
     TextView inningTextView;
 
-    String teamNameString = null;
+    static String teamNameString = null;
 
-    int team1Score;
-    int team2Score;
-    int strikeCount;
-    int ballCount;
-    int foulCount;
-    int outCount;
-    int inning;
-    int topOrBot;
+    static int team1Score;
+    static int team2Score;
+    static int strikeCount;
+    static int ballCount;
+    static int foulCount;
+    static int outCount;
+    static int inning;
+    static int topOrBot;
+
+    private static boolean threeFoulOption;
+    private static boolean autoMode;
 
 
     ImageButton settingButton;
@@ -67,6 +74,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         team1NameTextView = (TextView) findViewById(R.id.team1Name);
         team2NameTextView = (TextView) findViewById(R.id.team2Name);
@@ -94,6 +103,8 @@ public class MainActivity extends Activity {
         inningPlugButton = (Button) findViewById(R.id.inningPlusButton);
 
         initializeCountFields();
+        team1NameTextView.setText(teamNameString);
+        team2NameTextView.setText(teamNameString);
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
 
@@ -107,6 +118,9 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
+
+        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
+        autoMode = prefs.getBoolean(AUTOMODE, false);
 
         team2NameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -123,7 +137,10 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if (team1Score > 0)
                     team1Score--;
-                team1ScoreTextView.setText(String.valueOf(team1Score));
+                if (autoMode)
+                    autoMode();
+
+                updateFields();
             }
         });
         team1ScorePlusButton.setOnClickListener(new OnClickListener() {
@@ -131,16 +148,23 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 team1Score++;
-                team1ScoreTextView.setText(String.valueOf(team1Score));
+                if (autoMode)
+                    autoMode();
+
+
+                updateFields();
             }
         });
         team2ScoreMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (team2Score > 0)
                     team2Score--;
-                team2ScoreTextView.setText(String.valueOf(team2Score));
+                if (autoMode)
+                    autoMode();
 
+                updateFields();
             }
         });
         team2ScorePlusButton.setOnClickListener(new OnClickListener() {
@@ -148,7 +172,10 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 team2Score++;
-                team2ScoreTextView.setText(String.valueOf(team2Score));
+                if (autoMode)
+                    autoMode();
+
+                updateFields();
 
             }
         });
@@ -156,48 +183,68 @@ public class MainActivity extends Activity {
         strikeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (strikeCount < 3)
                     strikeCount++;
+                if (autoMode)
+                    autoMode();
 
-                strikeCountTextView.setText(String.valueOf(strikeCount));
+                updateFields();
             }
         });
         strikeMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (strikeCount > 0)
                     strikeCount--;
+                if (autoMode)
+                    autoMode();
 
-                strikeCountTextView.setText(String.valueOf(strikeCount));
+                updateFields();
             }
         });
         ballButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (ballCount < 4)
                     ballCount++;
+                if (autoMode)
+                    autoMode();
 
-                ballCountTextView.setText(String.valueOf(ballCount));
+                updateFields();
 
             }
         });
         ballMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (ballCount > 0)
                     ballCount--;
+                if (autoMode)
+                    autoMode();
 
-                ballCountTextView.setText(String.valueOf(ballCount));
+                updateFields();
 
             }
         });
         foulButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (foulCount < 4)
-                    foulCount++;
 
-                foulCountTextView.setText(String.valueOf(foulCount));
+                if (threeFoulOption) {
+                    if (foulCount < 3)
+                        foulCount++;
+                } else {
+                    if (foulCount < 4)
+                        foulCount++;
+                }
+                if (autoMode)
+                    autoMode();
+
+                updateFields();
 
 
             }
@@ -205,28 +252,39 @@ public class MainActivity extends Activity {
         foulMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (foulCount > 0)
                     foulCount--;
+                if (autoMode)
+                    autoMode();
 
-                foulCountTextView.setText(String.valueOf(foulCount));
+
+                updateFields();
             }
         });
         outButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (outCount < 3)
                     outCount++;
+                if (autoMode)
+                    autoMode();
 
-                outCountTextView.setText(String.valueOf(outCount));
+                updateFields();
             }
         });
         outMinusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (outCount > 0)
                     outCount--;
+                if (autoMode)
+                    autoMode();
 
-                outCountTextView.setText(String.valueOf(outCount));
+                updateFields();
+
             }
         });
         inningMinusButton.setOnClickListener(new OnClickListener() {
@@ -239,26 +297,29 @@ public class MainActivity extends Activity {
                     } else if (topOrBot == 2)
                         topOrBot = 1;
 
-                    if (topOrBot == 1)
-                        inningTextView.setText("TOP " + String.valueOf(inning));
-                    else if (topOrBot == 2)
-                        inningTextView.setText("BOTTOM " + String.valueOf(inning));
+                    if (autoMode)
+                        autoMode();
+
+                    updateFields();
                 }
             }
         });
         inningPlugButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (topOrBot == 1) {
-                    topOrBot = 2;
-                } else if (topOrBot == 2) {
-                    inning++;
-                    topOrBot = 1;
+                if (autoMode) {
+                    autoMode();
+                } else {
+                    if (topOrBot == 1) {
+                        topOrBot = 2;
+                    } else if (topOrBot == 2) {
+                        inning++;
+                        topOrBot = 1;
+                    }
                 }
-                if (topOrBot == 1)
-                    inningTextView.setText("TOP " + String.valueOf(inning));
-                else if (topOrBot == 2)
-                    inningTextView.setText("BOTTOM " + String.valueOf(inning));
+                if (autoMode)
+                    autoMode();
+                updateFields();
             }
         });
 
@@ -266,21 +327,23 @@ public class MainActivity extends Activity {
         settingButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), Settings.class));
                 Log.d(LOG_TAG, "Settings Button Pressed");
             }
         });
 
     }
 
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        Log.d(LOG_TAG,"OnRsume is called");
+        updateFields();
+        Log.d(LOG_TAG, "OnRsume is called");
     }
 
 
-
-    private void initializeCountFields() {
+    protected static void initializeCountFields() {
         team1Score = 0;
         team2Score = 0;
         strikeCount = 0;
@@ -289,7 +352,71 @@ public class MainActivity extends Activity {
         outCount = 0;
         inning = 1;
         topOrBot = 1;
+        teamNameString = "Team Name";
 
+
+    }
+
+    private void updateFields() {
+        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
+        autoMode = prefs.getBoolean(AUTOMODE, false);
+        team1ScoreTextView.setText(String.valueOf(team1Score));
+        team2ScoreTextView.setText(String.valueOf(team2Score));
+        ballCountTextView.setText(String.valueOf(ballCount));
+        strikeCountTextView.setText(String.valueOf(strikeCount));
+        foulCountTextView.setText(String.valueOf(foulCount));
+        outCountTextView.setText(String.valueOf(outCount));
+        if (topOrBot == 1)
+            inningTextView.setText("TOP " + String.valueOf(inning));
+        else if (topOrBot == 2)
+            inningTextView.setText("BOTTOM " + String.valueOf(inning));
+
+    }
+
+    private void autoMode() {
+        if (ballCount == 4) {
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (threeFoulOption) {
+            if (foulCount == 3) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        } else {
+            if (foulCount == 4) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        }
+        if (strikeCount == 3) {
+            outCount++;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (outCount == 3) {
+            if (topOrBot == 1) {
+                topOrBot = 2;
+            } else if (topOrBot == 2) {
+                inning++;
+                topOrBot = 1;
+            }
+            outCount = 0;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+
+    }
+
+    public SharedPreferences getPrefs() {
+        return (prefs);
     }
 
     private void editTeamName(final View v) {
@@ -316,8 +443,8 @@ public class MainActivity extends Activity {
                             public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
                                 // edit text
-                                if(v.getId() == R.id.team1Name)
-                                 team1NameTextView.setText(userInput.getText().toString());
+                                if (v.getId() == R.id.team1Name)
+                                    team1NameTextView.setText(userInput.getText().toString());
                                 else if (v.getId() == R.id.team2Name)
                                     team2NameTextView.setText(userInput.getText().toString());
                             }
