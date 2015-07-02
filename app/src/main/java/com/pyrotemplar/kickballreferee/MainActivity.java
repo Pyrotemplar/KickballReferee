@@ -43,8 +43,8 @@ public class MainActivity extends Activity implements OnClickListener {
     Button inningPlugButton;
 
 
-    TextView team1NameTextView;
-    TextView team2NameTextView;
+    static TextView team1NameTextView;
+    static TextView team2NameTextView;
     TextView team1ScoreTextView;
     TextView team2ScoreTextView;
     TextView ballCountTextView;
@@ -103,8 +103,6 @@ public class MainActivity extends Activity implements OnClickListener {
         inningPlugButton = (Button) findViewById(R.id.inningPlusButton);
 
         initializeCountFields();
-        team1NameTextView.setText(teamNameString);
-        team2NameTextView.setText(teamNameString);
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
         threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
@@ -164,7 +162,8 @@ public class MainActivity extends Activity implements OnClickListener {
         outCount = 0;
         inning = 1;
         topOrBot = 1;
-        teamNameString = "Team Name";
+        team1NameTextView.setText("Team A");
+        team2NameTextView.setText("Team B");
 
 
     }
@@ -370,16 +369,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             }
             case R.id.inningPlusButton: {
-                if (autoMode) {
-                    autoMode();
-                } else {
-                    if (topOrBot == 1) {
-                        topOrBot = 2;
-                    } else if (topOrBot == 2) {
-                        inning++;
-                        topOrBot = 1;
-                    }
+
+
+                if (topOrBot == 1) {
+                    topOrBot = 2;
+                } else if (topOrBot == 2) {
+                    inning++;
+                    topOrBot = 1;
                 }
+
                 if (autoMode)
                     autoMode();
                 break;
@@ -390,6 +388,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
             default:
         }
+
         updateFields();
     }
 }
