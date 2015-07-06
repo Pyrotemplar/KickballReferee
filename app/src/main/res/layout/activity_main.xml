@@ -1,342 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/settingButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@null"
-            android:padding="10dp"
-            android:src="@drawable/settings_button" />
-    </LinearLayout>
+            android:gravity="right">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/settingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@null"
+                android:padding="10dp"
+                android:src="@drawable/settings_button" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/team1Name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:longClickable="true"
-            android:text="Team 1"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/team2Name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:longClickable="true"
-            android:text="Team 2"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/team1Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:longClickable="true"
+                android:text="Team 1"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/team2Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:longClickable="true"
+                android:text="Team 2"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/team1Score"
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/team1Score"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:numeric="integer"
+                android:text="0"
+                android:textAlignment="gravity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="50dp" />
+
+            <TextView
+                android:id="@+id/team2Score"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:numeric="integer"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="0"
+                android:textAlignment="gravity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:textSize="50dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:numeric="integer"
-            android:text="0"
-            android:textAlignment="gravity"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white"
-            android:textSize="50dp" />
+            android:baselineAligned="false">
 
-        <TextView
-            android:id="@+id/team2Score"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:numeric="integer"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:text="0"
-            android:textAlignment="gravity"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white"
-            android:textSize="50dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/team1ScoreMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/team1ScorePlus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textSize="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/team2ScoreMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/team2ScorePlus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textSize="30dp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/ballButtonMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-"
-                android:textSize="30dp" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/strikeButtonMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                <Button
+                    android:id="@+id/team1ScoreMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/team1ScorePlus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-"
-                android:textSize="30dp" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/foulButtonMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="-"
-                android:textSize="30dp" />
+                <Button
+                    android:id="@+id/team2ScoreMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="30dp" />
 
-            <Button
-                android:id="@+id/outButtonMinus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="-"
-                android:textSize="30dp" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/team2ScorePlus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textSize="30dp" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="209dp"
-            android:layout_height="match_parent"
-            android:gravity="left"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/ballButton"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="BALL"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/strikeButton"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="STRIKE"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/foulButton"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-
-                android:layout_weight="1"
-                android:text="FOUL"
-                android:textSize="30dp" />
-
-            <Button
-                android:id="@+id/outButton"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="OUT"
-                android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/ballText"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/ballButtonMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/strikeButtonMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/foulButtonMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/outButtonMinus"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="209dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/ballButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="BALL"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/strikeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="STRIKE"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/foulButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+
+                    android:layout_weight="1"
+                    android:text="FOUL"
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/outButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="OUT"
+                    android:textSize="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ballText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:elegantTextHeight="false"
+                    android:gravity="center"
+                    android:numeric="integer"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textSize="50dp" />
+
+                <TextView
+                    android:id="@+id/strikeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:elegantTextHeight="false"
+                    android:gravity="center"
+                    android:numeric="integer"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textSize="50dp" />
+
+                <TextView
+                    android:id="@+id/foulText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:elegantTextHeight="false"
+                    android:gravity="center"
+                    android:numeric="integer"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textSize="50dp" />
+
+                <TextView
+                    android:id="@+id/outText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:elegantTextHeight="false"
+                    android:gravity="center"
+                    android:numeric="integer"
+                    android:text="0"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:textSize="50dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/inningMinusButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:elegantTextHeight="false"
-                android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/white"
-                android:textSize="50dp" />
+                android:text="-"
+                android:textSize="30dp" />
 
             <TextView
-                android:id="@+id/strikeText"
-                android:layout_width="match_parent"
+                android:id="@+id/inningText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:elegantTextHeight="false"
+                android:layout_weight="3"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
+                android:text="TOP 1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
-                android:textSize="50dp" />
+                android:textSize="30dp" />
 
-            <TextView
-                android:id="@+id/foulText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:elegantTextHeight="false"
-                android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/white"
-                android:textSize="50dp" />
-
-            <TextView
-                android:id="@+id/outText"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/inningPlusButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:elegantTextHeight="false"
-                android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/white"
-                android:textSize="50dp" />
-
+                android:text="+"
+                android:textSize="30dp" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/inningLabel"
-            android:layout_width="match_parent"
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Inning"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            android:layout_gravity="center_horizontal|bottom|left|right|top">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/inningMinusButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/inningText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="TOP 1"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
-
-        <Button
-            android:id="@+id/inningPlusButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="+"
-            android:textSize="30dp" />
-    </LinearLayout>
 </LinearLayout>

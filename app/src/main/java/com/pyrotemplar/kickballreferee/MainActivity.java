@@ -19,6 +19,9 @@ import android.widget.ImageButton;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class MainActivity extends Activity implements OnClickListener {
     private static final String LOG_TAG = "MainActivity";
@@ -53,6 +56,8 @@ public class MainActivity extends Activity implements OnClickListener {
     TextView outCountTextView;
     TextView inningTextView;
 
+    AdView mAdView;
+
     static String teamNameString = null;
 
     static int team1Score;
@@ -86,6 +91,8 @@ public class MainActivity extends Activity implements OnClickListener {
         foulCountTextView = (TextView) findViewById(R.id.foulText);
         outCountTextView = (TextView) findViewById(R.id.outText);
         inningTextView = (TextView) findViewById(R.id.inningText);
+
+        mAdView = (AdView) findViewById(R.id.adView);
 
         team1ScoreMinusButton = (Button) findViewById(R.id.team1ScoreMinus);
         team1ScorePlusButton = (Button) findViewById(R.id.team1ScorePlus);
@@ -127,6 +134,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 return false;
             }
         });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         team1ScoreMinusButton.setOnClickListener(this);
         team1ScorePlusButton.setOnClickListener(this);
