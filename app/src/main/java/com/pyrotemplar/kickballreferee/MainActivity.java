@@ -252,12 +252,13 @@ public class MainActivity extends Activity implements OnClickListener {
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
 
+
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.editTextDialogUserInput);
 
         // set dialog message
         alertDialogBuilder
-                .setCancelable(false)
+                .setCancelable(true)
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -267,12 +268,6 @@ public class MainActivity extends Activity implements OnClickListener {
                                     team1NameTextView.setText(userInput.getText().toString());
                                 else if (v.getId() == R.id.team2Name)
                                     team2NameTextView.setText(userInput.getText().toString());
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
                             }
                         });
 
