@@ -39,8 +39,9 @@
                 android:gravity="center"
                 android:longClickable="true"
                 android:text="Team 1"
-                android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textSize="@dimen/TextSize" />
 
             <TextView
                 android:id="@+id/team2Name"
@@ -50,8 +51,9 @@
                 android:gravity="center"
                 android:longClickable="true"
                 android:text="Team 2"
-                android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:textSize="@dimen/TextSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +71,7 @@
                 android:textAlignment="gravity"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
-                android:textSize="50dp" />
+                android:textSize="@dimen/NumberSize" />
 
             <TextView
                 android:id="@+id/team2Score"
@@ -84,7 +86,7 @@
                 android:textAlignment="gravity"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
-                android:textSize="50dp" />
+                android:textSize="@dimen/NumberSize" />
 
         </LinearLayout>
 
@@ -100,13 +102,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageButton
                     android:id="@+id/team1ScoreMinus"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:background="@null"
+                    android:src="@drawable/minusButton"/>
 
                 <Button
                     android:id="@+id/team1ScorePlus"
@@ -114,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/team2ScorePlus"
@@ -138,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
             </LinearLayout>
 
         </LinearLayout>
@@ -161,7 +164,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/strikeButtonMinus"
@@ -170,7 +173,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/foulButtonMinus"
@@ -179,7 +182,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/outButtonMinus"
@@ -188,7 +191,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="-"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
             </LinearLayout>
 
             <LinearLayout
@@ -203,7 +206,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="BALL"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/strikeButton"
@@ -211,7 +214,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="STRIKE"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/foulButton"
@@ -220,7 +223,7 @@
 
                     android:layout_weight="1"
                     android:text="FOUL"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
 
                 <Button
                     android:id="@+id/outButton"
@@ -228,7 +231,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="OUT"
-                    android:textSize="30dp" />
+                    android:textSize="@dimen/TextSize" />
             </LinearLayout>
 
             <LinearLayout
@@ -250,7 +253,7 @@
                     android:textAlignment="gravity"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textSize="50dp" />
+                    android:textSize="@dimen/NumberSize" />
 
                 <TextView
                     android:id="@+id/strikeText"
@@ -265,7 +268,7 @@
                     android:textAlignment="gravity"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textSize="50dp" />
+                    android:textSize="@dimen/NumberSize" />
 
                 <TextView
                     android:id="@+id/foulText"
@@ -280,7 +283,7 @@
                     android:textAlignment="gravity"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textSize="50dp" />
+                    android:textSize="@dimen/NumberSize" />
 
                 <TextView
                     android:id="@+id/outText"
@@ -294,7 +297,7 @@
                     android:textAlignment="gravity"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/white"
-                    android:textSize="50dp" />
+                    android:textSize="@dimen/NumberSize" />
 
             </LinearLayout>
         </LinearLayout>
@@ -310,7 +313,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="-"
-                android:textSize="30dp" />
+                android:textSize="@dimen/TextSize" />
 
             <TextView
                 android:id="@+id/inningText"
@@ -321,7 +324,7 @@
                 android:text="TOP 1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textSize="@dimen/TextSize" />
 
             <Button
                 android:id="@+id/inningPlusButton"
@@ -330,7 +333,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="+"
-                android:textSize="30dp" />
+                android:textSize="@dimen/TextSize" />
         </LinearLayout>
     </LinearLayout>
 
