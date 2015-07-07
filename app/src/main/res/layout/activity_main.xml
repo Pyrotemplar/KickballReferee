@@ -248,7 +248,7 @@
                     android:id="@+id/foulButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:textColorHighlight="@color/black"
                     android:layout_weight="1"
                     android:text="FOUL"
                     android:textSize="@dimen/TextSize"
@@ -335,7 +335,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="13dp">
+            android:background="@drawable/count_border">
 
             <Button
                 android:id="@+id/inningMinusButton"
@@ -371,8 +371,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="10"
-        android:paddingBottom="5dp">
+        android:layout_weight="7"
+        android:background="@drawable/count_border">
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
@@ -380,6 +380,7 @@
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_unit_id"
+            android:paddingTop="7dp"
             android:layout_gravity="center_horizontal|right">
         </com.google.android.gms.ads.AdView>
     </LinearLayout>
