@@ -3,29 +3,47 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/border"
     android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:text="@string/app_name"
+                android:id="@+id/nameTextView"
+                android:layout_weight="15"
+                android:textSize="@dimen/TextSize"
+                android:layout_marginLeft="5dp" />
 
             <ImageButton
                 android:id="@+id/settingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:background="@null"
                 android:padding="10dp"
-                android:src="@drawable/settings_button" />
+                android:src="@drawable/settings_button"
+                android:contentDescription="@string/settings"
+                android:baselineAlignBottom="false"
+                android:layout_weight="1" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/inner_border">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -93,7 +111,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:paddingBottom="10sp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -107,17 +126,19 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"
                     android:background="@null"
-                    android:src="@drawable/minusButton"/>
+                    android:src="@drawable/minus_button"
+                    android:scaleType="fitCenter"
+                    android:layout_marginRight="15dp" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/team1ScorePlus"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
-                    android:textSize="@dimen/TextSize" />
+                    android:background="@null"
+                    android:src="@drawable/plus_button"
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
 
             <LinearLayout
@@ -127,30 +148,34 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageButton
                     android:id="@+id/team2ScoreMinus"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-"
-                    android:textSize="@dimen/TextSize" />
+                    android:background="@null"
+                    android:src="@drawable/minus_button"
+                    android:scaleType="fitCenter"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/team2ScorePlus"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+"
-                    android:textSize="@dimen/TextSize" />
+                    android:background="@null"
+                    android:src="@drawable/plus_button"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="15dp" />
             </LinearLayout>
 
         </LinearLayout>
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/count_border">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -203,10 +228,12 @@
                 <Button
                     android:id="@+id/ballButton"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="BALL"
-                    android:textSize="@dimen/TextSize" />
+                    android:textSize="@dimen/TextSize"
+                    android:textStyle="bold"
+                    />
 
                 <Button
                     android:id="@+id/strikeButton"
@@ -214,24 +241,27 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="STRIKE"
-                    android:textSize="@dimen/TextSize" />
+                    android:textSize="@dimen/TextSize"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/foulButton"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
 
                     android:layout_weight="1"
                     android:text="FOUL"
-                    android:textSize="@dimen/TextSize" />
+                    android:textSize="@dimen/TextSize"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/outButton"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="OUT"
-                    android:textSize="@dimen/TextSize" />
+                    android:textSize="@dimen/TextSize"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -304,13 +334,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="13dp">
 
             <Button
                 android:id="@+id/inningMinusButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="-"
                 android:textSize="@dimen/TextSize" />
@@ -318,7 +349,7 @@
             <TextView
                 android:id="@+id/inningText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="TOP 1"
@@ -330,7 +361,7 @@
                 android:id="@+id/inningPlusButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="+"
                 android:textSize="@dimen/TextSize" />
@@ -339,13 +370,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:paddingBottom="5dp">
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_unit_id"
             android:layout_gravity="center_horizontal|right">
@@ -353,3 +385,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

@@ -31,9 +31,9 @@ public class MainActivity extends Activity implements OnClickListener {
     private SharedPreferences prefs = null;
 
     ImageButton team1ScoreMinusButton;
-    Button team1ScorePlusButton;
-    Button team2ScoreMinusButton;
-    Button team2ScorePlusButton;
+    ImageButton team1ScorePlusButton;
+    ImageButton team2ScoreMinusButton;
+    ImageButton team2ScorePlusButton;
     Button strikeButton;
     Button strikeMinusButton;
     Button ballButton;
@@ -95,9 +95,9 @@ public class MainActivity extends Activity implements OnClickListener {
         mAdView = (AdView) findViewById(R.id.adView);
 
         team1ScoreMinusButton = (ImageButton) findViewById(R.id.team1ScoreMinus);
-        team1ScorePlusButton = (Button) findViewById(R.id.team1ScorePlus);
-        team2ScoreMinusButton = (Button) findViewById(R.id.team2ScoreMinus);
-        team2ScorePlusButton = (Button) findViewById(R.id.team2ScorePlus);
+        team1ScorePlusButton = (ImageButton) findViewById(R.id.team1ScorePlus);
+        team2ScoreMinusButton = (ImageButton) findViewById(R.id.team2ScoreMinus);
+        team2ScorePlusButton = (ImageButton) findViewById(R.id.team2ScorePlus);
         strikeButton = (Button) findViewById(R.id.strikeButton);
         strikeMinusButton = (Button) findViewById(R.id.strikeButtonMinus);
         ballButton = (Button) findViewById(R.id.ballButton);

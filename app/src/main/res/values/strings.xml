@@ -10,9 +10,10 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="red">#ff0000</color>
+    <color name="red">#CB3232</color>
     <color name="blue">#0000ff</color>
 
     <string name="banner_ad_unit_id" >ca-app-pub-3940256099942544/6300978111</string>
+    <string name="settings">Settings</string>
 
 </resources>
