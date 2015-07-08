@@ -58,8 +58,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
     AdView mAdView;
 
-    static String teamNameString = null;
-
     static int team1Score;
     static int team2Score;
     static int strikeCount;
@@ -233,10 +231,6 @@ public class MainActivity extends Activity implements OnClickListener {
             strikeCount = 0;
         }
 
-    }
-
-    public SharedPreferences getPrefs() {
-        return (prefs);
     }
 
     private void editTeamName(final View v) {
