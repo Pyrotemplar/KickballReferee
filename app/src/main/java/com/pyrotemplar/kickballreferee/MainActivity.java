@@ -3,6 +3,7 @@ package com.pyrotemplar.kickballreferee;
 import android.app.Activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,20 +14,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-
+/**
+ * Created by Pyrotemplar on 6/27/2015.
+ * Main Activity,
+ */
 public class MainActivity extends Activity implements OnClickListener {
     private static final String LOG_TAG = "MainActivity";
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
     private static final String AUTOMODE = "AutoMode";
+    private static final String LEFTYMODE = "LeftyMode";
 
     private SharedPreferences prefs = null;
 
@@ -76,9 +83,98 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.righty_activity_main);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        setupButtons();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateFields();
+        if (prefs.getBoolean(LEFTYMODE, false))
+            setContentView(R.layout.lefty_activity_main);
+        else
+            setContentView(R.layout.righty_activity_main);
+        setupButtons();
+        Log.d(LOG_TAG, "OnRsume is called");
+    }
+
+    protected static void initializeCountFields() {
+        team1Score = 0;
+        team2Score = 0;
+        strikeCount = 0;
+        ballCount = 0;
+        foulCount = 0;
+        outCount = 0;
+        inning = 1;
+        topOrBot = 1;
+        team1NameTextView.setText("Team A");
+        team2NameTextView.setText("Team B");
+    }
+
+    private void updateFields() {
+        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
+        autoMode = prefs.getBoolean(AUTOMODE, false);
+        team1ScoreTextView.setText(String.valueOf(team1Score));
+        team2ScoreTextView.setText(String.valueOf(team2Score));
+        ballCountTextView.setText(String.valueOf(ballCount));
+        strikeCountTextView.setText(String.valueOf(strikeCount));
+        foulCountTextView.setText(String.valueOf(foulCount));
+        outCountTextView.setText(String.valueOf(outCount));
+        if (topOrBot == 1)
+            inningTextView.setText("TOP " + String.valueOf(inning));
+        else if (topOrBot == 2)
+            inningTextView.setText("BOTTOM " + String.valueOf(inning));
+
+    }
+
+    private void autoMode() {
+        if (ballCount == 4) {
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (threeFoulOption) {
+            if (foulCount == 3) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        } else {
+            if (foulCount == 4) {
+                outCount++;
+                ballCount = 0;
+                foulCount = 0;
+                strikeCount = 0;
+            }
+        }
+        if (strikeCount == 3) {
+            outCount++;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+        if (outCount == 3) {
+            if (topOrBot == 1) {
+                topOrBot = 2;
+            } else if (topOrBot == 2) {
+                inning++;
+                topOrBot = 1;
+            }
+            outCount = 0;
+            ballCount = 0;
+            foulCount = 0;
+            strikeCount = 0;
+        }
+
+    }
+
+    private void setupButtons() {
 
         team1NameTextView = (TextView) findViewById(R.id.team1Name);
         team2NameTextView = (TextView) findViewById(R.id.team2Name);
@@ -136,6 +232,7 @@ public class MainActivity extends Activity implements OnClickListener {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+
         team1ScoreMinusButton.setOnClickListener(this);
         team1ScorePlusButton.setOnClickListener(this);
         team2ScoreMinusButton.setOnClickListener(this);
@@ -151,86 +248,6 @@ public class MainActivity extends Activity implements OnClickListener {
         inningMinusButton.setOnClickListener(this);
         inningPlugButton.setOnClickListener(this);
         settingButton.setOnClickListener(this);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateFields();
-        Log.d(LOG_TAG, "OnRsume is called");
-    }
-
-    protected static void initializeCountFields() {
-        team1Score = 0;
-        team2Score = 0;
-        strikeCount = 0;
-        ballCount = 0;
-        foulCount = 0;
-        outCount = 0;
-        inning = 1;
-        topOrBot = 1;
-        team1NameTextView.setText("Team A");
-        team2NameTextView.setText("Team B");
-
-
-    }
-
-    private void updateFields() {
-        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
-        autoMode = prefs.getBoolean(AUTOMODE, false);
-        team1ScoreTextView.setText(String.valueOf(team1Score));
-        team2ScoreTextView.setText(String.valueOf(team2Score));
-        ballCountTextView.setText(String.valueOf(ballCount));
-        strikeCountTextView.setText(String.valueOf(strikeCount));
-        foulCountTextView.setText(String.valueOf(foulCount));
-        outCountTextView.setText(String.valueOf(outCount));
-        if (topOrBot == 1)
-            inningTextView.setText("TOP " + String.valueOf(inning));
-        else if (topOrBot == 2)
-            inningTextView.setText("BOTTOM " + String.valueOf(inning));
-    }
-
-    private void autoMode() {
-        if (ballCount == 4) {
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
-        }
-        if (threeFoulOption) {
-            if (foulCount == 3) {
-                outCount++;
-                ballCount = 0;
-                foulCount = 0;
-                strikeCount = 0;
-            }
-        } else {
-            if (foulCount == 4) {
-                outCount++;
-                ballCount = 0;
-                foulCount = 0;
-                strikeCount = 0;
-            }
-        }
-        if (strikeCount == 3) {
-            outCount++;
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
-        }
-        if (outCount == 3) {
-            if (topOrBot == 1) {
-                topOrBot = 2;
-            } else if (topOrBot == 2) {
-                inning++;
-                topOrBot = 1;
-            }
-            outCount = 0;
-            ballCount = 0;
-            foulCount = 0;
-            strikeCount = 0;
-        }
-
     }
 
 
@@ -256,6 +273,8 @@ public class MainActivity extends Activity implements OnClickListener {
         else
             userInput.setText(team2NameTextView.getText());
 
+        userInput.setSelection(userInput.getText().length());
+
         // set dialog message
         alertDialogBuilder
                 .setCancelable(true)
@@ -267,6 +286,7 @@ public class MainActivity extends Activity implements OnClickListener {
                                 if (!userInput.getText().toString().equals("")) {
                                     if (v.getId() == R.id.team1Name)
                                         team1NameTextView.setText(userInput.getText().toString());
+
                                     else if (v.getId() == R.id.team2Name)
                                         team2NameTextView.setText(userInput.getText().toString());
                                 }
@@ -275,6 +295,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         // show it
         alertDialog.show();

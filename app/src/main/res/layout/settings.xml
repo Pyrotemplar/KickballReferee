@@ -23,7 +23,8 @@
         android:id="@+id/autoMode_layout"
         android:layout_below="@+id/resetCountText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/autoModeText"
@@ -37,23 +38,50 @@
 
 
             <CheckBox
-                android:id="@+id/autoModecheckbox"
+                android:id="@+id/autoModeCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="bottom"
                 android:buttonTint="@color/white" />
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/leftyMode_layout"
+        android:layout_below="@+id/autoMode_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="10dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leftyModeText"
+            android:text="@string/leftyMode"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/TextSize"/>
+
+        <CheckBox
+            android:id="@+id/leftyModeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:buttonTint="@color/white" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/foulCount_layout"
-        android:layout_below="@+id/autoMode_layout"
+        android:layout_below="@+id/leftyMode_layout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
+
 
         <TextView
             android:id="@+id/foulText"
@@ -86,6 +114,7 @@
                 android:textColor="@color/white" />
 
         </RadioGroup>
+
     </LinearLayout>
 
     <com.google.android.gms.ads.AdView

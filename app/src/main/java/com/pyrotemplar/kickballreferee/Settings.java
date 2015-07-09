@@ -21,17 +21,22 @@ import static android.content.SharedPreferences.*;
 
 /**
  * Created by Pyrotemplar on 6/27/2015.
+ * settings Activity
  */
 public class Settings extends Activity {
 
     private static final String AUTOMODE = "AutoMode";
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
     private static final String EMAIL = "pyrotemplardev@gmail.com";
-
+    private static final String LEFTYMODE = "LeftyMode";
 
 
     CheckBox autoModeBox;
+    CheckBox leftyModeBox;
     TextView resetButton;
+    TextView autoModeText;
+    TextView leftyModeText;
+
     RadioButton threeFouldRadioButton;
     RadioButton fourFouldRadioButton;
     TextView feedbackButton;
@@ -41,26 +46,48 @@ public class Settings extends Activity {
     Editor edit;
 
     @Override
-    public void onCreate(Bundle saveInstanceState){
+    public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.settings);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         edit = sp.edit();
 
 
-
-        autoModeBox = (CheckBox) findViewById(R.id.autoModecheckbox);
+        autoModeText = (TextView) findViewById(R.id.autoModeText);
+        leftyModeText = (TextView) findViewById(R.id.leftyModeText);
+        autoModeBox = (CheckBox) findViewById(R.id.autoModeCheckbox);
         resetButton = (TextView) findViewById(R.id.resetCountText);
+        leftyModeBox = (CheckBox) findViewById(R.id.leftyModeCheckBox);
         threeFouldRadioButton = (RadioButton) findViewById(R.id.fouls3Radio);
         fourFouldRadioButton = (RadioButton) findViewById(R.id.fouls4Radio);
         feedbackButton = (TextView) findViewById(R.id.feedbackButton);
         mAdView = (AdView) findViewById(R.id.adView);
 
+
+        autoModeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoModeBox.isChecked())
+                    autoModeBox.setChecked(false);
+                else
+                    autoModeBox.setChecked(true);
+            }
+        });
+        leftyModeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (leftyModeBox.isChecked())
+                    leftyModeBox.setChecked(false);
+                else
+                    leftyModeBox.setChecked(true);
+            }
+        });
+
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.initializeCountFields();
-                Toast.makeText(v.getContext(),"Reset", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Reset", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -70,9 +97,9 @@ public class Settings extends Activity {
                 Intent feedbackIntent = new Intent(Intent.ACTION_SEND);
                 feedbackIntent.setType("text/email");
                 feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL});
-                feedbackIntent.putExtra(Intent.EXTRA_SUBJECT,  "Feedback for Kickball Referee");
-                feedbackIntent.putExtra(Intent.EXTRA_TEXT,"Dear Pyrotemplar," + "\n\n");
-                startActivity( Intent.createChooser(feedbackIntent, "Send Feedback:"));
+                feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Kickball Referee");
+                feedbackIntent.putExtra(Intent.EXTRA_TEXT, "Dear Pyrotemplar," + "\n\n");
+                startActivity(Intent.createChooser(feedbackIntent, "Send Feedback:"));
             }
         });
 
@@ -82,27 +109,30 @@ public class Settings extends Activity {
         loadSettings();
 
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
 
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         saveSettings();
         super.onPause();
     }
-    private void saveSettings(){
+
+    private void saveSettings() {
 
 
-        sp.edit().putBoolean(AUTOMODE, autoModeBox.isChecked()).commit();
-        if(threeFouldRadioButton.isChecked())
+        edit.putBoolean(AUTOMODE, autoModeBox.isChecked());
+        edit.putBoolean(LEFTYMODE, leftyModeBox.isChecked());
+        if (threeFouldRadioButton.isChecked())
             edit.putBoolean(THREE_FOULS_OPTION, true);
         else
             edit.putBoolean(THREE_FOULS_OPTION, false);
@@ -110,13 +140,14 @@ public class Settings extends Activity {
         edit.commit();
 
 
-
     }
-    private void loadSettings(){
+
+    private void loadSettings() {
 
         autoModeBox.setChecked(sp.getBoolean(AUTOMODE, false));
+        leftyModeBox.setChecked(sp.getBoolean(LEFTYMODE, false));
 
-        if(sp.getBoolean(THREE_FOULS_OPTION, false))
+        if (sp.getBoolean(THREE_FOULS_OPTION, false))
             threeFouldRadioButton.setChecked(true);
 
         else
