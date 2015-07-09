@@ -1,6 +1,7 @@
 package com.pyrotemplar.kickballreferee;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,6 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import static android.content.SharedPreferences.*;
 
 
@@ -22,6 +26,7 @@ public class Settings extends Activity {
 
     private static final String AUTOMODE = "AutoMode";
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
+    private static final String EMAIL = "pyrotemplardev@gmail.com";
 
 
 
@@ -29,6 +34,8 @@ public class Settings extends Activity {
     TextView resetButton;
     RadioButton threeFouldRadioButton;
     RadioButton fourFouldRadioButton;
+    TextView feedbackButton;
+    AdView mAdView;
 
     SharedPreferences sp;
     Editor edit;
@@ -46,6 +53,8 @@ public class Settings extends Activity {
         resetButton = (TextView) findViewById(R.id.resetCountText);
         threeFouldRadioButton = (RadioButton) findViewById(R.id.fouls3Radio);
         fourFouldRadioButton = (RadioButton) findViewById(R.id.fouls4Radio);
+        feedbackButton = (TextView) findViewById(R.id.feedbackButton);
+        mAdView = (AdView) findViewById(R.id.adView);
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +63,21 @@ public class Settings extends Activity {
                 Toast.makeText(v.getContext(),"Reset", Toast.LENGTH_SHORT).show();
             }
         });
+
+        feedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent feedbackIntent = new Intent(Intent.ACTION_SEND);
+                feedbackIntent.setType("text/email");
+                feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL});
+                feedbackIntent.putExtra(Intent.EXTRA_SUBJECT,  "Feedback for Kickball Referee");
+                feedbackIntent.putExtra(Intent.EXTRA_TEXT,"Dear Pyrotemplar," + "\n\n");
+                startActivity( Intent.createChooser(feedbackIntent, "Send Feedback:"));
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         loadSettings();
 

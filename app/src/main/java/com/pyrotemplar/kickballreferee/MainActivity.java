@@ -251,6 +251,11 @@ public class MainActivity extends Activity implements OnClickListener {
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.editTextDialogUserInput);
 
+        if (v.getId() == R.id.team1Name)
+            userInput.setText(team1NameTextView.getText());
+        else
+            userInput.setText(team2NameTextView.getText());
+
         // set dialog message
         alertDialogBuilder
                 .setCancelable(true)
@@ -259,10 +264,12 @@ public class MainActivity extends Activity implements OnClickListener {
                             public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
                                 // edit text
-                                if (v.getId() == R.id.team1Name)
-                                    team1NameTextView.setText(userInput.getText().toString());
-                                else if (v.getId() == R.id.team2Name)
-                                    team2NameTextView.setText(userInput.getText().toString());
+                                if (!userInput.getText().toString().equals("")) {
+                                    if (v.getId() == R.id.team1Name)
+                                        team1NameTextView.setText(userInput.getText().toString());
+                                    else if (v.getId() == R.id.team2Name)
+                                        team2NameTextView.setText(userInput.getText().toString());
+                                }
                             }
                         });
 
@@ -272,6 +279,11 @@ public class MainActivity extends Activity implements OnClickListener {
         // show it
         alertDialog.show();
 
+
+
+      /*  Button okButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        okButton.setBackgroundColor(getResources().getColor(R.color.black));
+        okButton.setTextColor(getResources().getColor(R.color.white));*/
     }
 
     @Override

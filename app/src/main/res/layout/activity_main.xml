@@ -62,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:longClickable="true"
-                android:text="Team 1"
-                android:textColor="#ff0000"
-                android:textSize="30sp"
+                android:text="Team A"
+                android:textColor="@color/red"
+                android:textSize="@dimen/TextSize"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end"/>
@@ -121,11 +121,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:longClickable="true"
-                android:text="Team 2"
+                android:text="Team B"
                 android:textColor="@color/blue"
-                android:textSize="30sp"
+                android:textSize="@dimen/TextSize"
                 android:textStyle="bold"
-                />
+                android:maxLines="1"
+                android:ellipsize="end" />
 
             <TextView
                 android:id="@+id/team2Score"
