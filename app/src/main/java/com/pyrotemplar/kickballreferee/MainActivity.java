@@ -77,6 +77,9 @@ public class MainActivity extends Activity implements OnClickListener {
     private static boolean threeFoulOption;
     private static boolean autoMode;
 
+    private static String team1Name = "Team A";
+    private static String team2Name = "Team b";
+
 
     ImageButton settingButton;
 
@@ -114,8 +117,8 @@ public class MainActivity extends Activity implements OnClickListener {
         outCount = 0;
         inning = 1;
         topOrBot = 1;
-        team1NameTextView.setText("Team A");
-        team2NameTextView.setText("Team B");
+        team1NameTextView.setText(team1Name);
+        team2NameTextView.setText(team2Name);
     }
 
     private void updateFields() {
@@ -232,6 +235,8 @@ public class MainActivity extends Activity implements OnClickListener {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        team1NameTextView.setText(team1Name);
+        team2NameTextView.setText(team2Name);
 
         team1ScoreMinusButton.setOnClickListener(this);
         team1ScorePlusButton.setOnClickListener(this);
@@ -284,11 +289,13 @@ public class MainActivity extends Activity implements OnClickListener {
                                 // get user input and set it to result
                                 // edit text
                                 if (!userInput.getText().toString().equals("")) {
-                                    if (v.getId() == R.id.team1Name)
-                                        team1NameTextView.setText(userInput.getText().toString());
-
-                                    else if (v.getId() == R.id.team2Name)
-                                        team2NameTextView.setText(userInput.getText().toString());
+                                    if (v.getId() == R.id.team1Name) {
+                                        team1Name = userInput.getText().toString();
+                                        team1NameTextView.setText(team1Name);
+                                    } else if (v.getId() == R.id.team2Name) {
+                                        team2Name = userInput.getText().toString();
+                                        team2NameTextView.setText(team2Name);
+                                    }
                                 }
                             }
                         });
