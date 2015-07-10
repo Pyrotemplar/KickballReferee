@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:padding="5sp"
-            android:text="Kickball Referee"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30sp" />
 
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:contentDescription="settings"
+            android:contentDescription="@string/settings"
             android:src="@drawable/settings_button" />
     </LinearLayout>
 
@@ -74,8 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
+                android:longClickable="false"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="50sp" />
@@ -121,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:longClickable="true"
-                android:text="Team B"
                 android:textColor="@color/blue"
+                android:text="Team B"
                 android:textSize="@dimen/TextSize"
                 android:textStyle="bold"
                 android:maxLines="1"
@@ -133,15 +132,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
+                android:longClickable="false"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="50sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0sp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -182,7 +180,7 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0sp"
             android:layout_height="match_parent"
             android:layout_weight="30"
             android:orientation="vertical">
@@ -192,12 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:elegantTextHeight="false"
+                android:longClickable="false"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="@dimen/NumberSize" />
@@ -207,12 +201,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
-                android:elegantTextHeight="false"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
+                android:longClickable="false"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="@dimen/NumberSize" />
@@ -221,13 +211,9 @@
                 android:id="@+id/foulText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
-                android:elegantTextHeight="false"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
+                android:longClickable="false"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="@dimen/NumberSize" />
@@ -237,11 +223,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:elegantTextHeight="false"
                 android:gravity="center"
-                android:numeric="integer"
-                android:text="0"
-                android:textAlignment="gravity"
+                android:longClickable="false"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white"
                 android:textSize="@dimen/NumberSize" />
@@ -303,7 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0sp"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="@string/minusSign"
                 android:textSize="@dimen/TextSize" />
 
             <Button
@@ -312,7 +295,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0sp"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="@string/minusSign"
                 android:textSize="@dimen/TextSize" />
 
             <Button
@@ -321,7 +304,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0sp"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="@string/minusSign"
                 android:textSize="@dimen/TextSize" />
 
             <Button
@@ -330,7 +313,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0sp"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="@string/minusSign"
                 android:textSize="@dimen/TextSize" />
         </LinearLayout>
 
@@ -353,7 +336,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:text="-"
+            android:text="@string/minusSign"
             android:textSize="@dimen/TextSize" />
 
         <TextView
@@ -362,7 +345,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="top 1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textSize="@dimen/TextSize" />
