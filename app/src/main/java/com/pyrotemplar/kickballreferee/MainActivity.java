@@ -88,18 +88,20 @@ public class MainActivity extends Activity implements OnClickListener {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         setupButtons();
+        initializeCountFields();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateFields();
-        if (prefs.getBoolean(LEFTYMODE, false))
+        if (prefs.getBoolean(LEFTYMODE, false)) {
             setContentView(R.layout.lefty_activity_main);
-        else
+        } else {
             setContentView(R.layout.righty_activity_main);
+        }
         setupButtons();
+        updateFields();
         Log.d(LOG_TAG, "OnRsume is called");
     }
 
@@ -202,8 +204,6 @@ public class MainActivity extends Activity implements OnClickListener {
         outMinusButton = (Button) findViewById(R.id.outButtonMinus);
         inningMinusButton = (Button) findViewById(R.id.inningMinusButton);
         inningPlugButton = (Button) findViewById(R.id.inningPlusButton);
-
-        initializeCountFields();
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
         threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
