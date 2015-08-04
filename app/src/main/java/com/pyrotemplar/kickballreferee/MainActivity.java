@@ -3,7 +3,6 @@ package com.pyrotemplar.kickballreferee;
 import android.app.Activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,7 +77,11 @@ public class MainActivity extends Activity implements OnClickListener {
     private static boolean autoMode;
 
     private static String team1Name = "Team A";
-    private static String team2Name = "Team b";
+    private static String team2Name = "Team B";
+
+    private LayoutInflater layoutInflater;
+    private LinearLayout countLayout;
+    private LinearLayout mainLayout;
 
 
     ImageButton settingButton;
@@ -86,9 +89,20 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.righty_activity_main);
+        setContentView(R.layout.activity_main);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        layoutInflater = getLayoutInflater();
+        mainLayout = (LinearLayout) findViewById(R.id.countLayout);
+
+        if (prefs.getBoolean(LEFTYMODE, false)) {
+            countLayout = (LinearLayout) layoutInflater.inflate(R.layout.lefty_count_layout,mainLayout, false);
+        } else {
+            countLayout = (LinearLayout) layoutInflater.inflate(R.layout.righty_count_layout, mainLayout, false);
+        }
+        mainLayout.addView(countLayout);
 
         setupButtons();
         initializeCountFields();
@@ -98,11 +112,13 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean(LEFTYMODE, false)) {
-            setContentView(R.layout.lefty_activity_main);
+            countLayout = (LinearLayout) layoutInflater.inflate(R.layout.lefty_count_layout,mainLayout, false);
         } else {
-            setContentView(R.layout.righty_activity_main);
+            countLayout = (LinearLayout) layoutInflater.inflate(R.layout.righty_count_layout, mainLayout, false);
         }
+        mainLayout.addView(countLayout);
         setupButtons();
         updateFields();
         Log.d(LOG_TAG, "OnRsume is called");
@@ -207,6 +223,7 @@ public class MainActivity extends Activity implements OnClickListener {
         outMinusButton = (Button) findViewById(R.id.outButtonMinus);
         inningMinusButton = (Button) findViewById(R.id.inningMinusButton);
         inningPlugButton = (Button) findViewById(R.id.inningPlusButton);
+
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
         threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
