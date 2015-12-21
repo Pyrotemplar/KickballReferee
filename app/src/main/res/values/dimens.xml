@@ -2,4 +2,14 @@
 <resources>
     <dimen name="TextSize">30sp</dimen>
     <dimen name="NumberSize">50sp</dimen>
+    <dimen name="textNumberSize">50sp</dimen>
+    <dimen name="textInningSize">40sp</dimen>
+    <dimen name="InningWordSize">20sp</dimen>
+    <dimen name="borderMargin">5dp</dimen>
+    <dimen name="logoTextSize">20sp</dimen>
+    <dimen name="edgePadding">5dp</dimen>
+    <dimen name="PlusMinusButtonSize">40dp</dimen>
+    <dimen name="buttonHeight">35dp</dimen>
+    <dimen name="circlePadding">8dp</dimen>
+    <dimen name="circleCountMargin">5dp</dimen>
 </resources>

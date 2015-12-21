@@ -1,144 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/resetCountText"
+    android:orientation="vertical"
+    android:background="@color/black">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/reset"
-        android:textColor="@color/white"
-        android:textSize="@dimen/NumberSize"
-        android:clickable="true"/>
+
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/settings_button" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:text="@string/settings"
+            android:textColor="@color/PrimaryTextColor"
+            android:textSize="@dimen/logoTextSize" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/autoMode_layout"
-        android:layout_below="@+id/resetCountText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingTop="10dp">
+        android:layout_marginLeft="@dimen/borderMargin"
+        android:layout_marginRight="@dimen/borderMargin"
+        android:background="@drawable/round_border"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/autoModeText"
-            android:layout_width="wrap_content"
+
+        <Button
+            android:id="@+id/resetCountButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/auto_mode"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:textSize="@dimen/TextSize"
-            android:gravity="center_vertical" />
+            android:layout_marginLeft="@dimen/borderMargin"
+            android:layout_marginRight="@dimen/borderMargin"
+            android:layout_marginTop="@dimen/borderMargin"
+            android:background="@drawable/custom_button_animation"
+            android:clickable="true"
+            android:text="@string/reset"
+            android:textColor="@color/PrimaryTextColor" />
 
+        <LinearLayout
+            android:id="@+id/autoMode_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/borderMargin"
+            android:layout_marginRight="@dimen/borderMargin"
+            android:layout_marginTop="@dimen/borderMargin"
+            android:background="@drawable/round_border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/borderMargin"
+                android:layout_marginRight="@dimen/borderMargin"
+
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/auto_mode"
+                android:textColor="@color/PrimaryTextColor" />
 
             <CheckBox
                 android:id="@+id/autoModeCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:buttonTint="@color/white" />
+                android:layout_gravity="center_vertical"
+                android:buttonTint="@color/PrimaryAccentColor"
+                android:checked="true"
+                android:textColorHighlight="@color/PrimaryAccentColor" />
+
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/leftyMode_layout"
-        android:layout_below="@+id/autoMode_layout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/vibrationMode_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/leftyModeText"
-            android:text="@string/leftyMode"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:textSize="@dimen/TextSize"/>
+            android:layout_marginLeft="@dimen/borderMargin"
+            android:layout_marginRight="@dimen/borderMargin"
+            android:layout_marginTop="@dimen/borderMargin"
+            android:background="@drawable/round_border">
 
-        <CheckBox
-            android:id="@+id/leftyModeCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:buttonTint="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/borderMargin"
+                android:layout_marginRight="@dimen/borderMargin"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/vibrationMode"
+                android:textColor="@color/PrimaryTextColor" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/foulCount_layout"
-        android:layout_below="@+id/leftyMode_layout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-        <TextView
-            android:id="@+id/foulText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/number_of_foul"
-            android:textColor="@color/white"
-            android:textSize="@dimen/TextSize"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/fouls3Radio"
+            <CheckBox
+                android:id="@+id/vibrationModeCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/white"
-                android:text="@string/threeFouls"
-                android:textColor="@color/white" />
+                android:layout_gravity="center_vertical"
+                android:buttonTint="@color/PrimaryAccentColor"
+                android:checked="true"
+                android:textColorHighlight="@color/PrimaryAccentColor" />
 
-            <RadioButton
-                android:id="@+id/fouls4Radio"
-                android:layout_width="wrap_content"
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/foulCount_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/borderMargin"
+            android:background="@drawable/round_border"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/foulText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/white"
-                android:text="@string/fourFouls"
-                android:textColor="@color/white" />
+                android:gravity="center_horizontal"
+                android:text="@string/number_of_foul"
+                android:textColor="@color/PrimaryTextColor"
+                android:textSize="@dimen/TextSize" />
 
-        </RadioGroup>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fouls3Radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/PrimaryAccentColor"
+                    android:text="@string/threeFouls"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/fouls4Radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/PrimaryAccentColor"
+                    android:text="@string/fourFouls"
+                    android:textColor="@color/white" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/feedbackButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/borderMargin"
+            android:layout_marginRight="@dimen/borderMargin"
+            android:layout_marginTop="@dimen/borderMargin"
+            android:background="@drawable/custom_button_animation"
+            android:clickable="true"
+            android:text="@string/feedback"
+            android:textColor="@color/PrimaryTextColor" />
+
+        <Button
+            android:id="@+id/removeAdsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/borderMargin"
+            android:layout_marginRight="@dimen/borderMargin"
+            android:layout_marginTop="@dimen/borderMargin"
+            android:layout_marginBottom="@dimen/borderMargin"
+            android:background="@drawable/custom_button_animation"
+            android:clickable="true"
+            android:text="@string/removeAds"
+            android:textColor="@color/PrimaryTextColor" />
+
 
     </LinearLayout>
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5sp">
-    </com.google.android.gms.ads.AdView>
-
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Feedback"
-        android:id="@+id/feedbackButton"
-        android:layout_below="@+id/foulCount_layout"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/NumberSize"
-        android:textColor="@color/white"/>
+        android:layout_height="wrap_content">
 
-
-</RelativeLayout>
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5sp"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+    </RelativeLayout>
+</LinearLayout>

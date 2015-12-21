@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/round_border"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/logoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_border"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="Reset Data"
+        android:textColor="@color/PrimaryTextColor"
+        android:textSize="@dimen/logoTextSize"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gameClockEditTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:text="Do you want to RESET all data?"
+        android:textColor="@color/PrimaryTextColor"
+        android:textStyle="bold">
+
+        <requestFocus />
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/yesButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button_animation"
+            android:clickable="true"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Yes"
+
+            android:textColor="@color/PrimaryTextColor" />
+
+        <Button
+            android:id="@+id/noButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="2.5dp"
+            android:background="@drawable/custom_button_animation"
+            android:clickable="true"
+            android:text="no"
+            android:textColor="@color/PrimaryTextColor" />
+    </LinearLayout>
+</LinearLayout>

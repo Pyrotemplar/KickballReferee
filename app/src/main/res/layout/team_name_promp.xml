@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_root"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@color/black">
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Team Name:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"/>
+    android:layout_margin="10dp"
+    android:background="@drawable/round_border">
 
     <EditText
         android:id="@+id/editTextDialogUserInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white">
+        android:padding="5dp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_background_border"
+        android:textColor="@color/black"
+        android:textStyle="bold">
         <requestFocus />
-
     </EditText>
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/custom_button_animation"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="ok"
+        android:clickable="true"
+        android:textColor="@color/PrimaryTextColor" />
 
 
 </LinearLayout>
