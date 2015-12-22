@@ -277,11 +277,13 @@ public class Settings extends Activity {
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
+            if(isAdsFreeModeEnabled){
+                adsAlreadyRemovedPromp();
+            }
             if (result.getResponse() == 7) {
                 isAdsFreeModeEnabled = true;
             }
             if (result.isFailure()) {
-                adsAlreadyRemovedPromp();
                 return;
             } else if (purchase.getSku().equals(ITEM_SKU)) {
                 isAdsFreeModeEnabled = true;

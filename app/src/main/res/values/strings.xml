@@ -18,8 +18,8 @@
 
 
 
-    <string name="banner_ad_unit_id">ca-app-pub-4945433901999769/9787032337</string>
-    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_iwd">ca-app-pub-4945433901999769/9787032337</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnncUNrZ9/xG9u+fUx0YOiaZWYh0Z0E0mFl1Zmiwp351v6u54hMYsbh3mqyaWbXGMfU98p9oJvzfUZRElWqiPqP4dYMYsTmsVcwZDK41JA2Kk5xgu63JhsrDmQiiSaydVlPiPQmHM4zPMXrNlj7pq21YiPKnKGyjW66+S/WKcjzPd9UpJ6bMiTlGEsiHCq1zxaSJEf3IojHsRoSDSyZdd/0eXcFgFsrEHmEh3SL37KMiBcwX8K7GW0Nq25RW6Qp4+bEGiWN9RLSUExVPQLqKvy8+guWmfsNDg1c3yIG1KRmePkNuYxgeX/VGVP6+ipasgazh7KVN/CH7viHmmePJ7RwIDAQAB</string>
 
 </resources>
