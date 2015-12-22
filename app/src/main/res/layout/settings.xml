@@ -3,187 +3,202 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/black">
-    <LinearLayout
+    android:background="@color/PrimaryBackgroundColor"
+    android:orientation="vertical">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:src="@drawable/settings_button" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center_vertical"
-            android:text="@string/settings"
-            android:textColor="@color/PrimaryTextColor"
-            android:textSize="@dimen/logoTextSize" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/borderMargin"
-        android:layout_marginRight="@dimen/borderMargin"
-        android:background="@drawable/round_border"
-        android:orientation="vertical">
-
-
-        <Button
-            android:id="@+id/resetCountButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/borderMargin"
-            android:layout_marginRight="@dimen/borderMargin"
-            android:layout_marginTop="@dimen/borderMargin"
-            android:background="@drawable/custom_button_animation"
-            android:clickable="true"
-            android:text="@string/reset"
-            android:textColor="@color/PrimaryTextColor" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/autoMode_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/borderMargin"
-            android:layout_marginRight="@dimen/borderMargin"
-            android:layout_marginTop="@dimen/borderMargin"
-            android:background="@drawable/round_border">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/borderMargin"
-                android:layout_marginRight="@dimen/borderMargin"
-
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/auto_mode"
-                android:textColor="@color/PrimaryTextColor" />
-
-            <CheckBox
-                android:id="@+id/autoModeCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:buttonTint="@color/PrimaryAccentColor"
-                android:checked="true"
-                android:textColorHighlight="@color/PrimaryAccentColor" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/vibrationMode_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/borderMargin"
-            android:layout_marginRight="@dimen/borderMargin"
-            android:layout_marginTop="@dimen/borderMargin"
-            android:background="@drawable/round_border">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/borderMargin"
-                android:layout_marginRight="@dimen/borderMargin"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/vibrationMode"
-                android:textColor="@color/PrimaryTextColor" />
-
-            <CheckBox
-                android:id="@+id/vibrationModeCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:buttonTint="@color/PrimaryAccentColor"
-                android:checked="true"
-                android:textColorHighlight="@color/PrimaryAccentColor" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/foulCount_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/borderMargin"
-            android:background="@drawable/round_border"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/foulText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/number_of_foul"
-                android:textColor="@color/PrimaryTextColor"
-                android:textSize="@dimen/TextSize" />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/fouls3Radio"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/settings_button" />
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings"
+                    android:textColor="@color/PrimaryTextColor"
+                    android:textSize="@dimen/logoTextSize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/borderMargin"
+                android:layout_marginRight="@dimen/borderMargin"
+                android:background="@drawable/round_border"
+                android:orientation="vertical">
+
+
+                <Button
+                    android:id="@+id/resetCountButton"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/PrimaryAccentColor"
-                    android:text="@string/threeFouls"
-                    android:textColor="@color/white" />
+                    android:layout_marginLeft="@dimen/borderMargin"
+                    android:layout_marginRight="@dimen/borderMargin"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/custom_button_animation"
+                    android:clickable="true"
+                    android:text="@string/reset"
+                    android:textColor="@color/PrimaryTextColor" />
 
-                <RadioButton
-                    android:id="@+id/fouls4Radio"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/autoMode_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/PrimaryAccentColor"
-                    android:text="@string/fourFouls"
-                    android:textColor="@color/white" />
+                    android:layout_marginLeft="@dimen/borderMargin"
+                    android:layout_marginRight="@dimen/borderMargin"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/round_border">
 
-            </RadioGroup>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/borderMargin"
+                        android:layout_marginRight="@dimen/borderMargin"
 
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/auto_mode"
+                        android:textColor="@color/PrimaryTextColor" />
+
+                    <CheckBox
+                        android:id="@+id/autoModeCheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:buttonTint="@color/PrimaryAccentColor"
+                        android:checked="true"
+                        android:textColorHighlight="@color/PrimaryAccentColor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/vibrationMode_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/borderMargin"
+                    android:layout_marginRight="@dimen/borderMargin"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/round_border">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/borderMargin"
+                        android:layout_marginRight="@dimen/borderMargin"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/vibrationMode"
+                        android:textColor="@color/PrimaryTextColor" />
+
+                    <CheckBox
+                        android:id="@+id/vibrationModeCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:buttonTint="@color/PrimaryAccentColor"
+                        android:checked="true"
+                        android:textColorHighlight="@color/PrimaryAccentColor" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/foulCount_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/borderMargin"
+                    android:background="@drawable/round_border"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/foulText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/number_of_foul"
+                        android:textColor="@color/PrimaryTextColor"
+                        android:textSize="@dimen/TextSize" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/fouls3Radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/PrimaryAccentColor"
+                            android:text="@string/threeFouls"
+                            android:textColor="@color/PrimaryTextColor" />
+
+                        <RadioButton
+                            android:id="@+id/fouls4Radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/PrimaryAccentColor"
+                            android:text="@string/fourFouls"
+                            android:textColor="@color/PrimaryTextColor" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/feedbackButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/borderMargin"
+                    android:layout_marginRight="@dimen/borderMargin"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/custom_button_animation"
+                    android:clickable="true"
+                    android:text="@string/feedback"
+                    android:textColor="@color/PrimaryTextColor" />
+
+
+                <Button
+                    android:id="@+id/removeAdsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/borderMargin"
+                    android:layout_marginLeft="@dimen/borderMargin"
+                    android:layout_marginRight="@dimen/borderMargin"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/custom_button_animation"
+                    android:clickable="true"
+                    android:text="@string/removeAds"
+                    android:textColor="@color/PrimaryTextColor" />
+
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/feedbackButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/borderMargin"
-            android:layout_marginRight="@dimen/borderMargin"
-            android:layout_marginTop="@dimen/borderMargin"
-            android:background="@drawable/custom_button_animation"
-            android:clickable="true"
-            android:text="@string/feedback"
-            android:textColor="@color/PrimaryTextColor" />
-
-        <Button
-            android:id="@+id/removeAdsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/borderMargin"
-            android:layout_marginRight="@dimen/borderMargin"
-            android:layout_marginTop="@dimen/borderMargin"
-            android:layout_marginBottom="@dimen/borderMargin"
-            android:background="@drawable/custom_button_animation"
-            android:clickable="true"
-            android:text="@string/removeAds"
-            android:textColor="@color/PrimaryTextColor" />
-
-
-    </LinearLayout>
     <RelativeLayout
+        android:id="@+id/ads_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -196,6 +211,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5sp"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="@string/banner_ad_unit_id_test">
+
+        </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </LinearLayout>

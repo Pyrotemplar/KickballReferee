@@ -6,28 +6,20 @@
     <string name="number_of_foul">Foul Count</string>
     <string name="threeFouls">3 Fouls</string>
     <string name="fourFouls">4 Fouls</string>
-    <string name="errorWarningEditGameClock">Must be between 1 - 60 Minutes</string>
-
-
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-    <color name="red">#CB3232</color>
-    <color name="blue">#0000ff</color>
-
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="hit">HIT!</string>
+    <string name="errorWarningEditGameClock">Must be between 1 - 180 Minutes</string>
     <string name="settings">Settings</string>
     <string name="leftyMode">Lefty Mode</string>
     <string name="minusSign">-</string>
-    <string name="hit">HIT!</string>
-    <string name="foul">Foul!</string>
-    <string name="ball">BALL!</string>
-    <string name="strike">Strike!</string>
-    <string name="out">OUT!</string>
     <string name="gameClockEditMessage">Enter Time in Minutes</string>
     <string name="vibrationMode">Vibration Mode</string>
     <string name="feedback">Feedback</string>
     <string name="removeAds">Remove Ads</string>
 
+
+
+    <string name="banner_ad_unit_id">ca-app-pub-4945433901999769/9787032337</string>
+    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="base64EncodedPublicKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnncUNrZ9/xG9u+fUx0YOiaZWYh0Z0E0mFl1Zmiwp351v6u54hMYsbh3mqyaWbXGMfU98p9oJvzfUZRElWqiPqP4dYMYsTmsVcwZDK41JA2Kk5xgu63JhsrDmQiiSaydVlPiPQmHM4zPMXrNlj7pq21YiPKnKGyjW66+S/WKcjzPd9UpJ6bMiTlGEsiHCq1zxaSJEf3IojHsRoSDSyZdd/0eXcFgFsrEHmEh3SL37KMiBcwX8K7GW0Nq25RW6Qp4+bEGiWN9RLSUExVPQLqKvy8+guWmfsNDg1c3yIG1KRmePkNuYxgeX/VGVP6+ipasgazh7KVN/CH7viHmmePJ7RwIDAQAB</string>
 
 </resources>

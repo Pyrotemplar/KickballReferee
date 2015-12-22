@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +41,10 @@ public class Settings extends Activity {
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
     private static final String EMAIL = "pyrotemplardev@gmail.com";
     private static final String VIBRATIONMODE = "VibrationMode";
-    private static final String ITEM_SKU = "android.test.purchased";
+    private static final String ADS_FREE_MODE = "adsFreeMode";
+    private static final String ITEM_SKU = "com.pyrotemplar.kickballreferee.adfreemode";
 
+    boolean isAdsFreeModeEnabled;
 
     CheckBox autoModeBox;
     CheckBox vibrationModeBox;
@@ -53,6 +56,7 @@ public class Settings extends Activity {
 
     LinearLayout autoModeLayout;
     LinearLayout vibrationModeLayout;
+    RelativeLayout adsLayout;
 
     RadioButton threeFouldRadioButton;
     RadioButton fourFouldRadioButton;
@@ -73,6 +77,7 @@ public class Settings extends Activity {
 
         autoModeLayout = (LinearLayout) findViewById(R.id.autoMode_layout);
         vibrationModeLayout = (LinearLayout) findViewById(R.id.vibrationMode_layout);
+        adsLayout = (RelativeLayout) findViewById(R.id.ads_layout);
         autoModeBox = (CheckBox) findViewById(R.id.autoModeCheckbox);
         resetButton = (Button) findViewById(R.id.resetCountButton);
         vibrationModeBox = (CheckBox) findViewById(R.id.vibrationModeCheckBox);
@@ -137,6 +142,11 @@ public class Settings extends Activity {
 
     @Override
     public void onResume() {
+        if (isAdsFreeModeEnabled) {
+            mAdView.destroy();
+            adsLayout.removeAllViews();
+            adsLayout.setVisibility(View.GONE);
+        }
         super.onResume();
     }
 
@@ -173,6 +183,7 @@ public class Settings extends Activity {
 
         edit.putBoolean(AUTOMODE, autoModeBox.isChecked());
         edit.putBoolean(VIBRATIONMODE, vibrationModeBox.isChecked());
+        edit.putBoolean(ADS_FREE_MODE, isAdsFreeModeEnabled);
         if (threeFouldRadioButton.isChecked())
             edit.putBoolean(THREE_FOULS_OPTION, true);
         else
@@ -187,6 +198,7 @@ public class Settings extends Activity {
 
         autoModeBox.setChecked(sp.getBoolean(AUTOMODE, true));
         vibrationModeBox.setChecked(sp.getBoolean(VIBRATIONMODE, false));
+        isAdsFreeModeEnabled = sp.getBoolean(ADS_FREE_MODE, false);
 
         if (sp.getBoolean(THREE_FOULS_OPTION, false))
             threeFouldRadioButton.setChecked(true);
@@ -252,7 +264,6 @@ public class Settings extends Activity {
                                            }
                                        }
                                    });
-
     }
 
     private void removeAds() {
@@ -266,13 +277,46 @@ public class Settings extends Activity {
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
+            if (result.getResponse() == 7) {
+                isAdsFreeModeEnabled = true;
+            }
             if (result.isFailure()) {
-                // Handle error
+                adsAlreadyRemovedPromp();
                 return;
             } else if (purchase.getSku().equals(ITEM_SKU)) {
-                    //remove add here
+                isAdsFreeModeEnabled = true;
             }
 
         }
     };
+
+    private void adsAlreadyRemovedPromp() {
+
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.message_promp, null);
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        // create alert dialog
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        Button okButton = (Button) promptsView.findViewById(R.id.okButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View okView) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        // show it
+        alertDialog.show();
+    }
 }

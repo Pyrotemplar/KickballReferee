@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -37,11 +39,14 @@ public class MainActivity extends Activity implements OnClickListener {
     private static final String LOG_TAG = "MainActivity";
     private static final String THREE_FOULS_OPTION = "ThreefoulOption";
     private static final String AUTOMODE = "AutoMode";
+    private static final String ADS_FREE_MODE = "adsFreeMode";
     private static final String VIBRATION_MODE = "VibrationMode";
     private GameTimer timer;
     private boolean isGameClockRunning;
     private boolean newTime;
-    private boolean isVibrationmodeOn;
+    private boolean isVibrationModeOn;
+    private boolean isAdsFreeModeEnabled;
+    private long back_pressed ;
     private int milliSecondsToFinish;
     private SharedPreferences prefs = null;
     private static int gameClockTime;
@@ -125,6 +130,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private LinearLayout strikeCountLayout;
     private LinearLayout foulCountLayout;
     private LinearLayout outCountLayout;
+    private LinearLayout adsLayout;
     private LayoutInflater layoutInflater;
     ImageButton settingButton;
 
@@ -153,6 +159,19 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
+        isAdsFreeModeEnabled = prefs.getBoolean(ADS_FREE_MODE, false);
+        autoMode = prefs.getBoolean(AUTOMODE, true);
+        isVibrationModeOn = prefs.getBoolean(VIBRATION_MODE, false);
+        if (isAdsFreeModeEnabled) {
+            mAdView.destroy();
+            adsLayout.removeAllViews();
+            adsLayout.setVisibility(View.GONE);
+        }
+        if (threeFoulOption)
+            foulCircleThree.setVisibility(View.INVISIBLE);
+        else
+            foulCircleThree.setVisibility(View.VISIBLE);
         // mainLayout = (LinearLayout) findViewById(R.id.countLayout);
      /*   if (prefs.getBoolean(LEFTYMODE, false)) {
             // countLayout = layoutInflater.inflate(R.layout.lefty_count_layout, mainLayout, false);
@@ -181,9 +200,8 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void updateFields() {
-        threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
-        autoMode = prefs.getBoolean(AUTOMODE, true);
-        isVibrationmodeOn = prefs.getBoolean(VIBRATION_MODE, false);
+        team1NameTextView.setText(team1Name);
+        team2NameTextView.setText(team2Name);
         team1ScoreView.setText(String.valueOf(team1Score));
         team2ScoreView.setText(String.valueOf(team2Score));
         inningTextView.setText(String.valueOf(inning));
@@ -303,6 +321,7 @@ public class MainActivity extends Activity implements OnClickListener {
         inningTextView = (TextView) findViewById(R.id.inningCount);
         timerView = (TextView) findViewById(R.id.timerView);
 
+        adsLayout = (LinearLayout) findViewById(R.id.ads_layout);
         mAdView = (AdView) findViewById(R.id.adView);
 
         team1ScoreMinusButton = (ImageButton) findViewById(R.id.team1ScoreMinus);
@@ -344,7 +363,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         ballColor = getResources().getColor(R.color.Yellow);
         strikeColor = getResources().getColor(R.color.Green);
-        foulColor = getResources().getColor(R.color.lightBlue);
+        foulColor = getResources().getColor(R.color.LightBlue);
         outColor = getResources().getColor(R.color.Red);
 
         gameClockEditButton = (ImageButton) findViewById(R.id.gameClockEditButton);
@@ -383,9 +402,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        team1NameTextView.setText(team1Name);
-        team2NameTextView.setText(team2Name);
 
         vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
         team1ScoreMinusButton.setOnClickListener(this);
@@ -445,6 +461,8 @@ public class MainActivity extends Activity implements OnClickListener {
         okButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View okView) {
+                if (isVibrationModeOn)
+                    vibrator.vibrate(50);
                 if (!userInput.getText().toString().equals("")) {
                     if (v.getId() == R.id.team1Name) {
                         team1Name = userInput.getText().toString();
@@ -468,8 +486,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(isVibrationmodeOn)
-            vibrator.vibrate(150);
+        if (isVibrationModeOn && v.getId() != R.id.settingButton)
+            vibrator.vibrate(50);
 
         switch (v.getId()) {
             case R.id.team1ScoreMinus: {
@@ -714,6 +732,8 @@ public class MainActivity extends Activity implements OnClickListener {
         okButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View okView) {
+                if (isVibrationModeOn)
+                    vibrator.vibrate(50);
                 if (!userInput.getText().toString().equals("")) {
                     if (Integer.parseInt(userInput.getText().toString()) > 0 && Integer.parseInt(userInput.getText().toString()) <= 180 && userInput.getText().toString().matches("[0-9]+")) {
                         gameClockTime = Integer.parseInt(userInput.getText().toString()) * 60;
@@ -722,7 +742,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         alertDialog.dismiss();
                     } else {
                         logoTextView.setText(R.string.errorWarningEditGameClock);
-                        logoTextView.setTextColor(getResources().getColor(R.color.red));
+                        logoTextView.setTextColor(getResources().getColor(R.color.Red));
                     }
                 }
             }
@@ -737,8 +757,22 @@ public class MainActivity extends Activity implements OnClickListener {
     private void shareScore() {
         Intent shareScoreIntent = new Intent(Intent.ACTION_SEND);
         shareScoreIntent.setType("text/plain");
-        shareScoreIntent.putExtra(Intent.EXTRA_SUBJECT, "Final Score between " + team1Name + " vs " + team2Name + " on " + date);
-        shareScoreIntent.putExtra(Intent.EXTRA_TEXT, "Final Score between " + team1Name + " vs " + team2Name + " on " + date + "\n" + team1Name + " - " + team1Score + "\n" + team2Name + " - " + team2Score);
+        shareScoreIntent.putExtra(Intent.EXTRA_SUBJECT, "Final Score between " + team1Name + " vs. " + team2Name + " on " + date);
+        shareScoreIntent.putExtra(Intent.EXTRA_TEXT, "Final Score between " + team1Name + " vs. " + team2Name + " on " + date + "\n" + team1Name + " - " + team1Score + "\n" + team2Name + " - " + team2Score);
         startActivity(Intent.createChooser(shareScoreIntent, "Share Game Score:"));
     }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()){
+            super.onBackPressed();
+        }
+        else{
+            Toast.makeText(getBaseContext(),
+                    "Press once again to exit!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
+
 }
