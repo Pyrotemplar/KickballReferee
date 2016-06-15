@@ -415,10 +415,10 @@ public class MainActivity extends Activity implements OnClickListener {
         outCircleTwo = findViewById(R.id.outCircleTwo);
         outCircleThree = findViewById(R.id.outCircleThree);
 
-        ballColor = getResources().getColor(R.color.Yellow);
-        strikeColor = getResources().getColor(R.color.Green);
-        foulColor = getResources().getColor(R.color.LightBlue);
-        outColor = getResources().getColor(R.color.Red);
+        ballColor = getResources().getColor(R.color.ballDefaultColor);
+        strikeColor = getResources().getColor(R.color.strikeDefaultColor);
+        foulColor = getResources().getColor(R.color.foulDefaultColor);
+        outColor = getResources().getColor(R.color.outDefaultColor);
 
         gameClockEditButton = (ImageButton) findViewById(R.id.gameClockEditButton);
         gameClockPlayButton = (ImageButton) findViewById(R.id.gameClockPlayButton);
@@ -832,7 +832,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         alertDialog.dismiss();
                     } else {
                         logoTextView.setText(R.string.errorWarningEditGameClock);
-                        logoTextView.setTextColor(getResources().getColor(R.color.Red));
+                        logoTextView.setTextColor(getResources().getColor(R.color.PrimaryHighlightColor));
                     }
                 }
             }

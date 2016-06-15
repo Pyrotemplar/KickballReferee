@@ -4,30 +4,28 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.larswerkman.holocolorpicker.ColorPicker;
 import com.pyrotemplar.inappbilling.util.IabHelper;
 import com.pyrotemplar.inappbilling.util.IabResult;
 import com.pyrotemplar.inappbilling.util.Purchase;
 
-import static android.content.SharedPreferences.*;
+import static android.content.SharedPreferences.Editor;
 
 
 /**
@@ -43,16 +41,36 @@ public class Settings extends Activity {
     private static final String VIBRATIONMODE = "VibrationMode";
     private static final String ADS_FREE_MODE = "adsFreeMode";
     private static final String ITEM_SKU = "com.pyrotemplar.kickballreferee.adfreemode";
+    private static final String HOME_COLOR = "homeColor";
+    private static final String AWAY_COLOR = "awayColor";
+    private static final String BALL_COLOR = "ballColor";
+    private static final String STRIKE_COLOR = "strikeColor";
+    private static final String FOUL_COLOR = "foulColor";
+    private static final String OUT_COLOR = "outColor";
 
     boolean isAdsFreeModeEnabled;
 
+    private ColorPicker colorPicker;
+
     CheckBox autoModeBox;
     CheckBox vibrationModeBox;
+    View changeHomeColorButton;
+    View changeAwayColorButton;
+    View changeBallColorButton;
+    View changeStrikeColorButton;
+    View changeFoulColorButton;
+    View changeOutColorButton;
+    Button resetBallColorButton;
+    Button resetStrikeColorButton;
+    Button resetFoulColorButton;
+    Button resetOutColorButton;
+
     Button resetButton;
     Button feedbackButton;
     Button removeAdsButton;
     Button yesButton;
     Button noButton;
+
 
     LinearLayout autoModeLayout;
     LinearLayout vibrationModeLayout;
@@ -74,7 +92,6 @@ public class Settings extends Activity {
         edit = sp.edit();
         setUpBilling();
 
-
         autoModeLayout = (LinearLayout) findViewById(R.id.autoMode_layout);
         vibrationModeLayout = (LinearLayout) findViewById(R.id.vibrationMode_layout);
         adsLayout = (RelativeLayout) findViewById(R.id.ads_layout);
@@ -83,6 +100,16 @@ public class Settings extends Activity {
         vibrationModeBox = (CheckBox) findViewById(R.id.vibrationModeCheckBox);
         threeFouldRadioButton = (RadioButton) findViewById(R.id.fouls3Radio);
         fourFouldRadioButton = (RadioButton) findViewById(R.id.fouls4Radio);
+        changeHomeColorButton =  findViewById(R.id.changeHomeColorButton);
+        changeAwayColorButton =  findViewById(R.id.changeAwayColorButton);
+        changeBallColorButton = findViewById(R.id.ballColorCircle);
+        changeStrikeColorButton = findViewById(R.id.strikeColorCircle);
+        changeFoulColorButton = findViewById(R.id.foulColorCircle);
+        changeOutColorButton = findViewById(R.id.outColorCircle);
+        resetBallColorButton = (Button) findViewById(R.id.resetBallColorButton);
+        resetStrikeColorButton = (Button) findViewById(R.id.resetStrikeColorButton);
+        resetFoulColorButton = (Button) findViewById(R.id.resetFoulColorButton);
+        resetOutColorButton = (Button) findViewById(R.id.resetOutColorButton);
         feedbackButton = (Button) findViewById(R.id.feedbackButton);
         removeAdsButton = (Button) findViewById(R.id.removeAdsButton);
         mAdView = (AdView) findViewById(R.id.adView);
@@ -107,6 +134,70 @@ public class Settings extends Activity {
             }
         });
 
+        changeHomeColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        changeAwayColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        changeBallColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        changeStrikeColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        changeFoulColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        changeOutColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPickerPromp(v);
+            }
+        });
+        resetBallColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillCountCircle(findViewById(R.id.ballColorCircle), getResources().getColor(R.color.ballDefaultColor));
+
+            }
+        });
+        resetStrikeColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillCountCircle(findViewById(R.id.strikeColorCircle), getResources().getColor(R.color.strikeDefaultColor));
+            }
+        });
+        resetFoulColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillCountCircle(findViewById(R.id.foulColorCircle), getResources().getColor(R.color.foulDefaultColor));
+
+            }
+        });
+        resetOutColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillCountCircle(findViewById(R.id.outColorCircle), getResources().getColor(R.color.outDefaultColor));
+
+            }
+        });
+
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +212,6 @@ public class Settings extends Activity {
                 feedbackIntent.setType("text/email");
                 feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL});
                 feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Kickball Referee");
-                feedbackIntent.putExtra(Intent.EXTRA_TEXT, "Dear Pyrotemplar," + "\n\n");
                 startActivity(Intent.createChooser(feedbackIntent, "Send Feedback:"));
             }
         });
@@ -277,7 +367,7 @@ public class Settings extends Activity {
             = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result,
                                           Purchase purchase) {
-            if(isAdsFreeModeEnabled){
+            if (isAdsFreeModeEnabled) {
                 adsAlreadyRemovedPromp();
             }
             if (result.getResponse() == 7) {
@@ -291,6 +381,62 @@ public class Settings extends Activity {
 
         }
     };
+
+    private void updateColors(View v) {
+
+        switch (v.getId()) {
+            case R.id.changeHomeColorButton: {
+                changeHomeColorButton.setBackgroundColor(colorPicker.getColor());
+                break;
+            }
+            case R.id.changeAwayColorButton: {
+                changeAwayColorButton.setBackgroundColor(colorPicker.getColor());
+                break;
+            }
+            case R.id.ballColorCircle:
+            case R.id.strikeColorCircle:
+            case R.id.foulColorCircle:
+            case R.id.outColorCircle: {
+                fillCountCircle(v, colorPicker.getColor());
+            }
+            default:
+        }
+    }
+
+    private void colorPickerPromp(final View v) {
+
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.color_picker_promp, null);
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        // create alert dialog
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        colorPicker = (ColorPicker) promptsView.findViewById(R.id.colorPicker);
+
+
+        Button okButton = (Button) promptsView.findViewById(R.id.okButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View okView) {
+                alertDialog.dismiss();
+                updateColors(v);
+            }
+        });
+
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        // show it
+        alertDialog.show();
+
+    }
 
     private void adsAlreadyRemovedPromp() {
 
@@ -320,5 +466,16 @@ public class Settings extends Activity {
 
         // show it
         alertDialog.show();
+    }
+
+
+    private void fillCountCircle(View v, int color) {
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setColor(color);
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+        shape.setStroke(9, getResources().getColor(R.color.PrimaryAccentColor));
+        v.setBackground(shape);
     }
 }

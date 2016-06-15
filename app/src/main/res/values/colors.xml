@@ -4,9 +4,12 @@
     <color name="PrimaryTextColor">#FFFFFF</color>
     <color name="PrimaryAccentColor">#474747</color>
     <color name="PrimaryHighlightColor">#C70000</color>
-    <color name="Yellow">#f2ea3c</color>
-    <color name="LightBlue">#4e97fd</color>
-    <color name="Green">#1dd80c</color>
-    <color name="Red">#C70000</color>
+    <color name="ballDefaultColor">#f2ea3c</color>
+    <color name="foulDefaultColor">#4e97fd</color>
+    <color name="strikeDefaultColor">#1dd80c</color>
+    <color name="outDefaultColor">#C70000</color>
     <color name="Black">#000000</color>
+    <color name="DefaultHomeColor">#C70000</color>
+    <color name="DefaultAwayColor">#0000FF</color>
+
 </resources>

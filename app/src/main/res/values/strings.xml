@@ -4,6 +4,7 @@
     <string name="reset">Reset</string>
     <string name="auto_mode">Automatic Mode</string>
     <string name="number_of_foul">Foul Count</string>
+    <string name="change_color">Change Colors</string>
     <string name="threeFouls">3 Fouls</string>
     <string name="fourFouls">4 Fouls</string>
     <string name="hit">HIT!</string>
@@ -15,7 +16,8 @@
     <string name="vibrationMode">Vibration Mode</string>
     <string name="feedback">Feedback</string>
     <string name="removeAds">Remove Ads</string>
-
+    <string name="home">Home</string>
+    <string name="away">Away</string>
 
 
     <string name="banner_ad_unit_id">ca-app-pub-4945433901999769/9787032337</string>
