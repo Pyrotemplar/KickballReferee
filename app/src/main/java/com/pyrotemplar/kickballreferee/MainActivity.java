@@ -5,9 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -29,6 +29,7 @@ import com.google.android.gms.ads.AdView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Stack;
 
 /**
  * Created by Pyrotemplar on 6/27/2015.
@@ -45,8 +46,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private boolean isGameClockRunning;
     private boolean newTime;
     private boolean isVibrationModeOn;
+    private boolean vibrate;
     private boolean isAdsFreeModeEnabled;
-    private long back_pressed ;
+    private boolean undo;
+    private long back_pressed;
     private int milliSecondsToFinish;
     private SharedPreferences prefs = null;
     private static int gameClockTime;
@@ -79,6 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
     Button hitButton;
     Button okButton;
     Button shareScoreButton;
+    Button undoButton;
 
     View ballCircleOne;
     View ballCircleTwo;
@@ -93,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     View outCircleOne;
     View outCircleTwo;
+    View outCircleThree;
 
     ImageView topInningImage;
     ImageView bottomInningImage;
@@ -104,7 +109,6 @@ public class MainActivity extends Activity implements OnClickListener {
     TextView team2ScoreView;
     TextView inningTextView;
     TextView timerView;
-    TextView dateTextView;
 
     AdView mAdView;
 
@@ -123,8 +127,13 @@ public class MainActivity extends Activity implements OnClickListener {
     private static String team1Name;
     private static String team2Name;
 
-    private View countLayout;
-    private LinearLayout mainLayout;
+    private static Stack<CurrentState> undoStack;
+    private static CurrentState currentState;
+
+    /*    private View countLayout;
+        private LinearLayout mainLayout;
+        private LinearLayout team1Layout;
+        private LinearLayout team2Layout;*/
     private LinearLayout inningLayout;
     private LinearLayout ballCountLayout;
     private LinearLayout strikeCountLayout;
@@ -150,6 +159,8 @@ public class MainActivity extends Activity implements OnClickListener {
             //countLayout = layoutInflater.inflate(R.layout.righty_count_layout, mainLayout, false);
         }
         //  mainLayout.addView(countLayout);*/
+        vibrate = true;
+        undoStack = new Stack<>();
         initializeCountFields();
         setupButtons();
     }
@@ -172,6 +183,12 @@ public class MainActivity extends Activity implements OnClickListener {
             foulCircleThree.setVisibility(View.INVISIBLE);
         else
             foulCircleThree.setVisibility(View.VISIBLE);
+
+        if (autoMode)
+            outCircleThree.setVisibility(View.INVISIBLE);
+        else
+            outCircleThree.setVisibility(View.VISIBLE);
+
         // mainLayout = (LinearLayout) findViewById(R.id.countLayout);
      /*   if (prefs.getBoolean(LEFTYMODE, false)) {
             // countLayout = layoutInflater.inflate(R.layout.lefty_count_layout, mainLayout, false);
@@ -183,7 +200,21 @@ public class MainActivity extends Activity implements OnClickListener {
         Log.d(LOG_TAG, "OnRsume is called");
     }
 
+    protected void undoFunction() {
+        currentState = undoStack.pop();
+        team1Score = currentState.getTeam1Score();
+        team2Score = currentState.getTeam2Score();
+        strikeCount = currentState.getStrikeCount();
+        ballCount = currentState.getBallCount();
+        foulCount = currentState.getFoulCount();
+        outCount = currentState.getOutCount();
+        inning = currentState.getInning();
+        topOrBot = currentState.getTopOrBot();
+        updateFields();
+    }
+
     protected static void initializeCountFields() {
+
 
         team1Score = 0;
         team2Score = 0;
@@ -197,6 +228,11 @@ public class MainActivity extends Activity implements OnClickListener {
         team1Name = "Team A";
         team2Name = "Team B";
 
+        currentState = new CurrentState();
+        currentState.setInning(1);
+        currentState.setTopOrBot(1);
+        undoStack.clear();
+
     }
 
     private void updateFields() {
@@ -205,12 +241,18 @@ public class MainActivity extends Activity implements OnClickListener {
         team1ScoreView.setText(String.valueOf(team1Score));
         team2ScoreView.setText(String.valueOf(team2Score));
         inningTextView.setText(String.valueOf(inning));
+
         if (topOrBot == 1) {
             topInningImage.setVisibility(View.VISIBLE);
             bottomInningImage.setVisibility(View.INVISIBLE);
+            team1ScoreView.setTextColor(Color.RED);
+            team2ScoreView.setTextColor(Color.WHITE);
+
         } else if (topOrBot == 2) {
             topInningImage.setVisibility(View.INVISIBLE);
             bottomInningImage.setVisibility(View.VISIBLE);
+            team1ScoreView.setTextColor(Color.WHITE);
+            team2ScoreView.setTextColor(Color.RED);
         }
         if (ballCount >= 1) {
             fillCountCircle(ballCircleOne, ballColor);
@@ -260,12 +302,18 @@ public class MainActivity extends Activity implements OnClickListener {
         if (outCount >= 1) {
             fillCountCircle(outCircleOne, outColor);
             fillCountCircle(outCircleTwo, 0);
+            fillCountCircle(outCircleThree, 0);
             if (outCount >= 2) {
                 fillCountCircle(outCircleTwo, outColor);
+                fillCountCircle(outCircleThree, 0);
+                if (outCount == 3 && !autoMode) {
+                    fillCountCircle(outCircleThree, outColor);
+                }
             }
         } else {
             fillCountCircle(outCircleOne, 0);
             fillCountCircle(outCircleTwo, 0);
+            fillCountCircle(outCircleThree, 0);
         }
 
     }
@@ -301,7 +349,10 @@ public class MainActivity extends Activity implements OnClickListener {
             if (topOrBot == 1) {
                 topOrBot = 2;
             } else if (topOrBot == 2) {
-                inning++;
+                if (inning < 9)
+                    inning++;
+                else
+                    inning = 1;
                 topOrBot = 1;
             }
             outCount = 0;
@@ -341,6 +392,8 @@ public class MainActivity extends Activity implements OnClickListener {
         inningMinusButton = (ImageButton) findViewById(R.id.inningMinusButton);
         inningPlusButton = (ImageButton) findViewById(R.id.inningPlusButton);
         hitButton = (Button) findViewById(R.id.hitButton);
+        //  team1Layout = (LinearLayout) findViewById(R.id.team1Layout);
+        //  team2Layout = (LinearLayout) findViewById(R.id.team2Layout);
         inningLayout = (LinearLayout) findViewById(R.id.inningLayout);
         ballCountLayout = (LinearLayout) findViewById(R.id.ballCountLayout);
         strikeCountLayout = (LinearLayout) findViewById(R.id.strikeCountLayout);
@@ -360,6 +413,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         outCircleOne = findViewById(R.id.outCircleOne);
         outCircleTwo = findViewById(R.id.outCircleTwo);
+        outCircleThree = findViewById(R.id.outCircleThree);
 
         ballColor = getResources().getColor(R.color.Yellow);
         strikeColor = getResources().getColor(R.color.Green);
@@ -369,12 +423,12 @@ public class MainActivity extends Activity implements OnClickListener {
         gameClockEditButton = (ImageButton) findViewById(R.id.gameClockEditButton);
         gameClockPlayButton = (ImageButton) findViewById(R.id.gameClockPlayButton);
         shareScoreButton = (Button) findViewById(R.id.shareScoreButton);
+        undoButton = (Button) findViewById(R.id.undoButton);
 
         initializeGameClock(gameClockTime);
 
-        dateTextView = (TextView) findViewById(R.id.dateTextView);
         date = new SimpleDateFormat("MM-dd-yy").format(new Date());
-        dateTextView.setText(date);
+
 
         settingButton = (ImageButton) findViewById(R.id.settingButton);
         threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
@@ -429,6 +483,7 @@ public class MainActivity extends Activity implements OnClickListener {
         hitButton.setOnClickListener(this);
         gameClockPlayButton.setOnClickListener(this);
         gameClockEditButton.setOnClickListener(this);
+        undoButton.setOnClickListener(this);
         shareScoreButton.setOnClickListener(this);
     }
 
@@ -486,34 +541,49 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (isVibrationModeOn && v.getId() != R.id.settingButton)
-            vibrator.vibrate(50);
 
         switch (v.getId()) {
+
             case R.id.team1ScoreMinus: {
-                if (team1Score > 0)
-                    team1Score--;
+                if (topOrBot == 1) {
+                    if (team1Score > 0) {
+                        team1Score--;
+                    }
+                }else
+                vibrate = false;
                 break;
             }
             case R.id.team1ScoreView:
             case R.id.team1ScorePlus: {
-                if (team1Score < 99)
-                    team1Score++;
-                else
-                    team1Score = 0;
+                if (topOrBot == 1) {
+                    if (team1Score < 99)
+                        team1Score++;
+                    else
+                        team1Score = 0;
+
+                }else
+                vibrate = false;
                 break;
             }
             case R.id.team2ScoreMinus: {
-                if (team2Score > 0)
-                    team2Score--;
+                if (topOrBot == 2) {
+                    if (team2Score > 0) {
+                        team2Score--;
+                    }
+                }else
+                vibrate = false;
                 break;
             }
             case R.id.team2ScoreView:
             case R.id.team2ScorePlus: {
-                if (team2Score < 99)
-                    team2Score++;
-                else
-                    team2Score = 0;
+                if (topOrBot == 2) {
+                    if (team2Score < 99)
+                        team2Score++;
+                    else
+                        team2Score = 0;
+
+                } else
+                vibrate = false;
                 break;
             }
             case R.id.ballButtonMinus: {
@@ -590,7 +660,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     ballCount = 0;
                     foulCount = 0;
                     strikeCount = 0;
-                } else if (outCount == 3)
+                } else if (outCount > 3)
                     outCount = 0;
                 break;
             }
@@ -638,12 +708,15 @@ public class MainActivity extends Activity implements OnClickListener {
                 break;
             }
             case R.id.gameClockPlayButton: {
-                if (isGameClockRunning) {
-                    isGameClockRunning = false;
-                } else {
-                    isGameClockRunning = true;
-                }
+                isGameClockRunning = !isGameClockRunning;
                 startStopGameClick();
+                break;
+            }
+            case R.id.undoButton: {
+                if (!undoStack.isEmpty()) {
+                    undoFunction();
+                    undo = true;
+                }
                 break;
             }
             case R.id.shareScoreButton: {
@@ -652,8 +725,25 @@ public class MainActivity extends Activity implements OnClickListener {
             }
             default:
         }
+        if (isVibrationModeOn && vibrate)
+            vibrator.vibrate(50);
+        vibrate = true;
 
-        updateFields();
+        if (!undo) {
+            undoStack.push(currentState);
+            currentState = new CurrentState();
+            currentState.setTeam1Score(team1Score);
+            currentState.setTeam2Score(team2Score);
+            currentState.setStrikeCount(strikeCount);
+            currentState.setBallCount(ballCount);
+            currentState.setFoulCount(foulCount);
+            currentState.setOutCount(outCount);
+            currentState.setInning(inning);
+            currentState.setTopOrBot(topOrBot);
+
+            updateFields();
+        } else
+            undo = false;
     }
 
     private void fillCountCircle(View v, int color) {
@@ -764,10 +854,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (back_pressed + 2000 > System.currentTimeMillis()){
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
-        }
-        else{
+        } else {
             Toast.makeText(getBaseContext(),
                     "Press once again to exit!", Toast.LENGTH_SHORT)
                     .show();

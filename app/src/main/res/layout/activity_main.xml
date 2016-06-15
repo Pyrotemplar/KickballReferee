@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,9 +25,9 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
-                    android:src="@drawable/ic_launcher"
-                    android:layout_marginLeft="5dp"/>
+                    android:src="@drawable/ic_launcher" />
 
                 <TextView
                     android:id="@+id/nameTextView"
@@ -300,8 +301,8 @@
                     android:layout_marginTop="@dimen/borderMargin"
                     android:layout_weight="1"
                     android:background="@drawable/custom_button_animation"
-                    android:text="@string/hit"
                     android:clickable="true"
+                    android:text="@string/hit"
                     android:textColor="@color/PrimaryTextColor" />
             </LinearLayout>
 
@@ -336,9 +337,9 @@
 
                         <View
                             android:id="@+id/ballCircleOne"
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="@dimen/circleCountMargin"
                             android:background="@drawable/circle_border" />
 
@@ -353,8 +354,8 @@
                         <View
                             android:id="@+id/ballCircleThree"
                             android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
                             android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="@dimen/circleCountMargin"
 
                             android:background="@drawable/circle_border" />
@@ -371,101 +372,23 @@
 
 
                         <ImageButton
-                            android:id="@+id/ballButtonPlus"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@null"
-                            android:contentDescription="add 1 Ball to the count"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/plus_button" />
-
-                        <ImageButton
                             android:id="@+id/ballButtonMinus"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:background="@null"
-                            android:contentDescription="Subtract 1 Ball from the count"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/minus_button" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/foulCountLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="F"
-                            android:textColor="@color/PrimaryTextColor"
-                            android:textSize="50dp" />
-
-                        <View
-                            android:id="@+id/foulCircleOne"
-                            android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="@dimen/circleCountMargin"
-                            android:background="@drawable/circle_border" />
-
-                        <View
-                            android:id="@+id/foulCircleTwo"
-                            android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="@dimen/circleCountMargin"
-                            android:background="@drawable/circle_border" />
-
-                        <View
-                            android:id="@+id/foulCircleThree"
-                            android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_height="45dp"
-                            android:layout_marginBottom="@dimen/circleCountMargin"
-                            android:background="@drawable/circle_border"
-                            android:visibility="visible" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/circleCountMargin"
-                        android:gravity="center_horizontal|bottom"
-                        android:orientation="horizontal">
-
-
-                        <ImageButton
-                            android:id="@+id/foulButtonPlus"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
                             android:layout_marginRight="5dp"
                             android:background="@null"
                             android:contentDescription="add 1 Ball to the count"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/plus_button" />
+                            android:src="@drawable/minus_button" />
 
                         <ImageButton
-                            android:id="@+id/foulButtonMinus"
+                            android:id="@+id/ballButtonPlus"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:background="@null"
                             android:contentDescription="Subtract 1 Ball from the count"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/minus_button" />
+                            android:src="@drawable/plus_button" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -495,16 +418,16 @@
                         <View
                             android:id="@+id/strikeCircleOne"
                             android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
                             android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="@dimen/circleCountMargin"
                             android:background="@drawable/circle_border" />
 
                         <View
                             android:id="@+id/strikeCircleTwo"
                             android:layout_width="45dp"
-                            android:layout_gravity="center_horizontal"
                             android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
                             android:background="@drawable/circle_border" />
 
                     </LinearLayout>
@@ -516,25 +439,104 @@
                         android:gravity="center_horizontal|bottom"
                         android:orientation="horizontal">
 
+                        <ImageButton
+                            android:id="@+id/strikeButtonMinus"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@null"
+                            android:contentDescription="Subtract 1 Ball from the count"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/minus_button" />
 
                         <ImageButton
                             android:id="@+id/strikeButtonPlus"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:layout_marginRight="5dp"
                             android:background="@null"
                             android:contentDescription="add 1 Ball to the count"
                             android:scaleType="fitCenter"
                             android:src="@drawable/plus_button" />
 
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/foulCountLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="F"
+                            android:textColor="@color/PrimaryTextColor"
+                            android:textSize="50dp" />
+
+                        <View
+                            android:id="@+id/foulCircleOne"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/circleCountMargin"
+                            android:background="@drawable/circle_border" />
+
+                        <View
+                            android:id="@+id/foulCircleTwo"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/circleCountMargin"
+                            android:background="@drawable/circle_border" />
+
+                        <View
+                            android:id="@+id/foulCircleThree"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/circleCountMargin"
+                            android:background="@drawable/circle_border"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/circleCountMargin"
+                        android:gravity="center_horizontal|bottom"
+                        android:orientation="horizontal">
+
                         <ImageButton
-                            android:id="@+id/strikeButtonMinus"
+                            android:id="@+id/foulButtonMinus"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
+                            android:layout_marginRight="5dp"
                             android:background="@null"
                             android:contentDescription="Subtract 1 Ball from the count"
                             android:scaleType="fitCenter"
                             android:src="@drawable/minus_button" />
+
+                        <ImageButton
+                            android:id="@+id/foulButtonPlus"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@null"
+                            android:contentDescription="add 1 Ball to the count"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/plus_button" />
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -574,8 +576,16 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/circleCountMargin"
                             android:background="@drawable/circle_border" />
 
+                        <View
+                            android:id="@+id/outCircleThree"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="@dimen/circleCountMargin"
+                            android:background="@drawable/circle_border" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -587,23 +597,23 @@
 
 
                         <ImageButton
-                            android:id="@+id/outButtonPlus"
+                            android:id="@+id/outButtonMinus"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_marginRight="5dp"
                             android:background="@null"
-                            android:contentDescription="add 1 Ball to the count"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/plus_button" />
-
-                        <ImageButton
-                            android:id="@+id/outButtonMinus"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:background="@null"
                             android:contentDescription="Subtract 1 Ball from the count"
                             android:scaleType="fitCenter"
                             android:src="@drawable/minus_button" />
+
+                        <ImageButton
+                            android:id="@+id/outButtonPlus"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@null"
+                            android:contentDescription="add 1 Ball to the count"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/plus_button" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -646,8 +656,8 @@
                             android:id="@+id/gameClockPlayButton"
                             android:layout_width="@dimen/PlusMinusButtonSize"
                             android:layout_height="@dimen/PlusMinusButtonSize"
-                            android:layout_marginLeft="5dp"
                             android:layout_marginBottom="2dp"
+                            android:layout_marginLeft="5dp"
                             android:background="@null"
                             android:contentDescription="change the Game Clock"
                             android:padding="5dp"
@@ -683,34 +693,18 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginRight="@dimen/borderMargin"
-                        android:layout_weight="1"
-                        android:background="@drawable/round_border"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2.5dp"
-                            android:text="Game Date"
-                            android:textColor="@color/PrimaryTextColor" />
-
-                        <TextView
-                            android:id="@+id/dateTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="2.5dp"
-                            android:textColor="@color/PrimaryTextColor"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/undoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/custom_button_animation"
+                        android:text="UNDO"
+                        android:textColor="@color/PrimaryTextColor"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/shareScoreButton"
@@ -718,6 +712,7 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
+                        android:layout_weight="1"
                         android:background="@drawable/custom_button_animation"
                         android:text="Share Score"
                         android:textColor="@color/PrimaryTextColor"
@@ -730,6 +725,7 @@
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/ads_layout"
         android:layout_width="wrap_content"
@@ -743,7 +739,7 @@
 
             android:layout_gravity="center_horizontal"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id">
+            ads:adUnitId="@string/banner_ad_unit_id_test">
 
         </com.google.android.gms.ads.AdView>
     </LinearLayout>
