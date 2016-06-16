@@ -42,6 +42,13 @@ public class MainActivity extends Activity implements OnClickListener {
     private static final String AUTOMODE = "AutoMode";
     private static final String ADS_FREE_MODE = "adsFreeMode";
     private static final String VIBRATION_MODE = "VibrationMode";
+    private static final String HOME_COLOR = "homeColor";
+    private static final String AWAY_COLOR = "awayColor";
+    private static final String BALL_COLOR = "ballColor";
+    private static final String STRIKE_COLOR = "strikeColor";
+    private static final String FOUL_COLOR = "foulColor";
+    private static final String OUT_COLOR = "outColor";
+
     private GameTimer timer;
     private boolean isGameClockRunning;
     private boolean newTime;
@@ -57,6 +64,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private String date;
 
+    private int homeColor;
+    private int awayColor;
     private int ballColor;
     private int strikeColor;
     private int foulColor;
@@ -174,6 +183,12 @@ public class MainActivity extends Activity implements OnClickListener {
         isAdsFreeModeEnabled = prefs.getBoolean(ADS_FREE_MODE, false);
         autoMode = prefs.getBoolean(AUTOMODE, true);
         isVibrationModeOn = prefs.getBoolean(VIBRATION_MODE, false);
+        homeColor = prefs.getInt(HOME_COLOR, getResources().getColor(R.color.DefaultHomeColor));
+        awayColor = prefs.getInt(AWAY_COLOR, getResources().getColor(R.color.DefaultAwayColor));
+        ballColor = prefs.getInt(BALL_COLOR, getResources().getColor(R.color.ballDefaultColor));
+        strikeColor = prefs.getInt(STRIKE_COLOR, getResources().getColor(R.color.strikeDefaultColor));
+        foulColor = prefs.getInt(FOUL_COLOR, getResources().getColor(R.color.foulDefaultColor));
+        outColor = prefs.getInt(OUT_COLOR, getResources().getColor(R.color.outDefaultColor));
         if (isAdsFreeModeEnabled) {
             mAdView.destroy();
             adsLayout.removeAllViews();
@@ -188,6 +203,9 @@ public class MainActivity extends Activity implements OnClickListener {
             outCircleThree.setVisibility(View.INVISIBLE);
         else
             outCircleThree.setVisibility(View.VISIBLE);
+
+        fillRectangle(team1NameTextView, homeColor);
+        fillRectangle(team2NameTextView, awayColor);
 
         // mainLayout = (LinearLayout) findViewById(R.id.countLayout);
      /*   if (prefs.getBoolean(LEFTYMODE, false)) {
@@ -255,65 +273,65 @@ public class MainActivity extends Activity implements OnClickListener {
             team2ScoreView.setTextColor(Color.RED);
         }
         if (ballCount >= 1) {
-            fillCountCircle(ballCircleOne, ballColor);
-            fillCountCircle(ballCircleTwo, 0);
-            fillCountCircle(ballCircleThree, 0);
+            fillCircle(ballCircleOne, ballColor);
+            fillCircle(ballCircleTwo, 0);
+            fillCircle(ballCircleThree, 0);
             if (ballCount >= 2) {
-                fillCountCircle(ballCircleTwo, ballColor);
-                fillCountCircle(ballCircleThree, 0);
+                fillCircle(ballCircleTwo, ballColor);
+                fillCircle(ballCircleThree, 0);
                 if (ballCount >= 3)
-                    fillCountCircle(ballCircleThree, ballColor);
+                    fillCircle(ballCircleThree, ballColor);
             }
         } else {
-            fillCountCircle(ballCircleOne, 0);
-            fillCountCircle(ballCircleTwo, 0);
-            fillCountCircle(ballCircleThree, 0);
+            fillCircle(ballCircleOne, 0);
+            fillCircle(ballCircleTwo, 0);
+            fillCircle(ballCircleThree, 0);
         }
 
         if (foulCount >= 1) {
-            fillCountCircle(foulCircleOne, foulColor);
-            fillCountCircle(foulCircleTwo, 0);
-            fillCountCircle(foulCircleThree, 0);
+            fillCircle(foulCircleOne, foulColor);
+            fillCircle(foulCircleTwo, 0);
+            fillCircle(foulCircleThree, 0);
             if (foulCount >= 2) {
-                fillCountCircle(foulCircleTwo, foulColor);
-                fillCountCircle(foulCircleThree, 0);
+                fillCircle(foulCircleTwo, foulColor);
+                fillCircle(foulCircleThree, 0);
                 if (foulCount >= 3 && !threeFoulOption)
-                    fillCountCircle(foulCircleThree, foulColor);
+                    fillCircle(foulCircleThree, foulColor);
             }
         } else {
-            fillCountCircle(foulCircleOne, 0);
-            fillCountCircle(foulCircleTwo, 0);
-            fillCountCircle(foulCircleThree, 0);
+            fillCircle(foulCircleOne, 0);
+            fillCircle(foulCircleTwo, 0);
+            fillCircle(foulCircleThree, 0);
         }
 
         if (strikeCount >= 1) {
-            fillCountCircle(strikeCircleOne, strikeColor);
-            fillCountCircle(strikeCircleTwo, 0);
+            fillCircle(strikeCircleOne, strikeColor);
+            fillCircle(strikeCircleTwo, 0);
             if (strikeCount >= 2) {
-                fillCountCircle(strikeCircleTwo, strikeColor);
+                fillCircle(strikeCircleTwo, strikeColor);
 
 
             }
         } else {
-            fillCountCircle(strikeCircleOne, 0);
-            fillCountCircle(strikeCircleTwo, 0);
+            fillCircle(strikeCircleOne, 0);
+            fillCircle(strikeCircleTwo, 0);
 
         }
         if (outCount >= 1) {
-            fillCountCircle(outCircleOne, outColor);
-            fillCountCircle(outCircleTwo, 0);
-            fillCountCircle(outCircleThree, 0);
+            fillCircle(outCircleOne, outColor);
+            fillCircle(outCircleTwo, 0);
+            fillCircle(outCircleThree, 0);
             if (outCount >= 2) {
-                fillCountCircle(outCircleTwo, outColor);
-                fillCountCircle(outCircleThree, 0);
+                fillCircle(outCircleTwo, outColor);
+                fillCircle(outCircleThree, 0);
                 if (outCount == 3 && !autoMode) {
-                    fillCountCircle(outCircleThree, outColor);
+                    fillCircle(outCircleThree, outColor);
                 }
             }
         } else {
-            fillCountCircle(outCircleOne, 0);
-            fillCountCircle(outCircleTwo, 0);
-            fillCountCircle(outCircleThree, 0);
+            fillCircle(outCircleOne, 0);
+            fillCircle(outCircleTwo, 0);
+            fillCircle(outCircleThree, 0);
         }
 
     }
@@ -653,7 +671,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
             case R.id.outCountLayout:
             case R.id.outButtonPlus: {
-                if (outCount < 3)
+                if (outCount <= 3)
                     outCount++;
                 if (autoMode) {
                     autoMode();
@@ -746,7 +764,7 @@ public class MainActivity extends Activity implements OnClickListener {
             undo = false;
     }
 
-    private void fillCountCircle(View v, int color) {
+    private void fillCircle(View v, int color) {
 
         GradientDrawable shape = new GradientDrawable();
         shape.setColor(color);
@@ -755,6 +773,16 @@ public class MainActivity extends Activity implements OnClickListener {
         shape.setStroke(9, getResources().getColor(R.color.PrimaryAccentColor));
         v.setBackground(shape);
 
+    }
+
+    private void fillRectangle(View v, int color) {
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setColor(color);
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setStroke(9, getResources().getColor(R.color.PrimaryAccentColor));
+        shape.setCornerRadius(1);
+        v.setBackground(shape);
     }
 
     private void gameClock(int length) {

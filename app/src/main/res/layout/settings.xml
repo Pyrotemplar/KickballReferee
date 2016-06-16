@@ -201,7 +201,7 @@
                             android:layout_marginRight="@dimen/borderMargin"
                             android:clickable="true"
                             android:layout_weight="1"
-                            android:text="Home"
+                            android:text="HOME"
                             android:textColor="@color/Black"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />
@@ -215,7 +215,7 @@
                             android:layout_marginRight="@dimen/borderMargin"
                             android:clickable="true"
                             android:layout_weight="1"
-                            android:text="Away"
+                            android:text="AWAY"
                             android:textColor="@color/Black"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />

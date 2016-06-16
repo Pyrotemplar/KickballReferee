@@ -52,6 +52,14 @@ public class Settings extends Activity {
 
     private ColorPicker colorPicker;
 
+    private int ballColor;
+    private int strikeColor;
+    private int foulColor;
+    private int outColor;
+    private int homeColor;
+    private int awayColor;
+
+
     CheckBox autoModeBox;
     CheckBox vibrationModeBox;
     View changeHomeColorButton;
@@ -92,6 +100,15 @@ public class Settings extends Activity {
         edit = sp.edit();
         setUpBilling();
 
+        homeColor = getResources().getColor(R.color.DefaultHomeColor);
+        awayColor = getResources().getColor(R.color.DefaultAwayColor);
+
+        ballColor = getResources().getColor(R.color.ballDefaultColor);
+        strikeColor = getResources().getColor(R.color.strikeDefaultColor);
+        foulColor = getResources().getColor(R.color.foulDefaultColor);
+        outColor = getResources().getColor(R.color.outDefaultColor);
+
+
         autoModeLayout = (LinearLayout) findViewById(R.id.autoMode_layout);
         vibrationModeLayout = (LinearLayout) findViewById(R.id.vibrationMode_layout);
         adsLayout = (RelativeLayout) findViewById(R.id.ads_layout);
@@ -100,8 +117,8 @@ public class Settings extends Activity {
         vibrationModeBox = (CheckBox) findViewById(R.id.vibrationModeCheckBox);
         threeFouldRadioButton = (RadioButton) findViewById(R.id.fouls3Radio);
         fourFouldRadioButton = (RadioButton) findViewById(R.id.fouls4Radio);
-        changeHomeColorButton =  findViewById(R.id.changeHomeColorButton);
-        changeAwayColorButton =  findViewById(R.id.changeAwayColorButton);
+        changeHomeColorButton = findViewById(R.id.changeHomeColorButton);
+        changeAwayColorButton = findViewById(R.id.changeAwayColorButton);
         changeBallColorButton = findViewById(R.id.ballColorCircle);
         changeStrikeColorButton = findViewById(R.id.strikeColorCircle);
         changeFoulColorButton = findViewById(R.id.foulColorCircle);
@@ -138,6 +155,7 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
                 colorPickerPromp(v);
+
             }
         });
         changeAwayColorButton.setOnClickListener(new View.OnClickListener() {
@@ -173,27 +191,27 @@ public class Settings extends Activity {
         resetBallColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillCountCircle(findViewById(R.id.ballColorCircle), getResources().getColor(R.color.ballDefaultColor));
+                fillCircle(findViewById(R.id.ballColorCircle), getResources().getColor(R.color.ballDefaultColor));
 
             }
         });
         resetStrikeColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillCountCircle(findViewById(R.id.strikeColorCircle), getResources().getColor(R.color.strikeDefaultColor));
+                fillCircle(findViewById(R.id.strikeColorCircle), getResources().getColor(R.color.strikeDefaultColor));
             }
         });
         resetFoulColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillCountCircle(findViewById(R.id.foulColorCircle), getResources().getColor(R.color.foulDefaultColor));
+                fillCircle(findViewById(R.id.foulColorCircle), getResources().getColor(R.color.foulDefaultColor));
 
             }
         });
         resetOutColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fillCountCircle(findViewById(R.id.outColorCircle), getResources().getColor(R.color.outDefaultColor));
+                fillCircle(findViewById(R.id.outColorCircle), getResources().getColor(R.color.outDefaultColor));
 
             }
         });
@@ -274,6 +292,14 @@ public class Settings extends Activity {
         edit.putBoolean(AUTOMODE, autoModeBox.isChecked());
         edit.putBoolean(VIBRATIONMODE, vibrationModeBox.isChecked());
         edit.putBoolean(ADS_FREE_MODE, isAdsFreeModeEnabled);
+        edit.putInt(HOME_COLOR, homeColor);
+        edit.putInt(AWAY_COLOR, awayColor);
+        edit.putInt(BALL_COLOR, ballColor);
+        edit.putInt(STRIKE_COLOR, strikeColor);
+        edit.putInt(FOUL_COLOR, foulColor);
+        edit.putInt(OUT_COLOR, outColor);
+
+
         if (threeFouldRadioButton.isChecked())
             edit.putBoolean(THREE_FOULS_OPTION, true);
         else
@@ -289,6 +315,14 @@ public class Settings extends Activity {
         autoModeBox.setChecked(sp.getBoolean(AUTOMODE, true));
         vibrationModeBox.setChecked(sp.getBoolean(VIBRATIONMODE, false));
         isAdsFreeModeEnabled = sp.getBoolean(ADS_FREE_MODE, false);
+
+        fillRectangle(changeHomeColorButton, sp.getInt(HOME_COLOR, getResources().getColor(R.color.DefaultHomeColor)));
+        fillRectangle(changeAwayColorButton, sp.getInt(AWAY_COLOR, getResources().getColor(R.color.DefaultAwayColor)));
+        fillCircle(changeBallColorButton, sp.getInt(BALL_COLOR, getResources().getColor(R.color.ballDefaultColor)));
+        fillCircle(changeStrikeColorButton, sp.getInt(STRIKE_COLOR, getResources().getColor(R.color.strikeDefaultColor)));
+        fillCircle(changeFoulColorButton, sp.getInt(FOUL_COLOR, getResources().getColor(R.color.foulDefaultColor)));
+        fillCircle(changeOutColorButton, sp.getInt(OUT_COLOR, getResources().getColor(R.color.outDefaultColor)));
+
 
         if (sp.getBoolean(THREE_FOULS_OPTION, false))
             threeFouldRadioButton.setChecked(true);
@@ -386,18 +420,35 @@ public class Settings extends Activity {
 
         switch (v.getId()) {
             case R.id.changeHomeColorButton: {
-                changeHomeColorButton.setBackgroundColor(colorPicker.getColor());
+                homeColor = colorPicker.getColor();
+                fillRectangle(v, homeColor);
                 break;
+
             }
             case R.id.changeAwayColorButton: {
-                changeAwayColorButton.setBackgroundColor(colorPicker.getColor());
+                awayColor = colorPicker.getColor();
+                fillRectangle(v, awayColor);
                 break;
             }
-            case R.id.ballColorCircle:
-            case R.id.strikeColorCircle:
-            case R.id.foulColorCircle:
+            case R.id.ballColorCircle: {
+                ballColor = colorPicker.getColor();
+                fillCircle(v, ballColor);
+                break;
+            }
+            case R.id.strikeColorCircle: {
+                strikeColor = colorPicker.getColor();
+                fillCircle(v, strikeColor);
+                break;
+            }
+            case R.id.foulColorCircle: {
+                foulColor = colorPicker.getColor();
+                fillCircle(v, foulColor);
+                break;
+            }
             case R.id.outColorCircle: {
-                fillCountCircle(v, colorPicker.getColor());
+                outColor = colorPicker.getColor();
+                fillCircle(v, outColor);
+                break;
             }
             default:
         }
@@ -469,13 +520,22 @@ public class Settings extends Activity {
     }
 
 
-    private void fillCountCircle(View v, int color) {
+    private void fillCircle(View v, int color) {
 
         GradientDrawable shape = new GradientDrawable();
         shape.setColor(color);
         shape.setShape(GradientDrawable.OVAL);
-        shape.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
         shape.setStroke(9, getResources().getColor(R.color.PrimaryAccentColor));
+        v.setBackground(shape);
+    }
+
+    private void fillRectangle(View v, int color) {
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setColor(color);
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setStroke(9, getResources().getColor(R.color.PrimaryAccentColor));
+        shape.setCornerRadius(1);
         v.setBackground(shape);
     }
 }
