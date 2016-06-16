@@ -195,14 +195,13 @@
                             android:id="@+id/changeHomeColorButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/text_background_border"
                             android:gravity="center_horizontal"
                             android:layout_marginLeft="@dimen/borderMargin"
                             android:layout_marginRight="@dimen/borderMargin"
                             android:clickable="true"
                             android:layout_weight="1"
+                            android:textColor="@color/PrimaryTextColor"
                             android:text="HOME"
-                            android:textColor="@color/Black"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />
 
@@ -210,13 +209,12 @@
                             android:id="@+id/changeAwayColorButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/text_background_border"
                             android:gravity="center_horizontal"
                             android:layout_marginRight="@dimen/borderMargin"
                             android:clickable="true"
                             android:layout_weight="1"
                             android:text="AWAY"
-                            android:textColor="@color/Black"
+                            android:textColor="@color/PrimaryTextColor"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />
                     </LinearLayout>

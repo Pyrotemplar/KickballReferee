@@ -11,5 +11,6 @@
     <color name="Black">#000000</color>
     <color name="DefaultHomeColor">#C70000</color>
     <color name="DefaultAwayColor">#0000FF</color>
+    <color name="OpacityBlack">#99000000</color>
 
 </resources>

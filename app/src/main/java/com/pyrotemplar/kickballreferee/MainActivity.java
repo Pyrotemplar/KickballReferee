@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -48,12 +47,14 @@ public class MainActivity extends Activity implements OnClickListener {
     private static final String STRIKE_COLOR = "strikeColor";
     private static final String FOUL_COLOR = "foulColor";
     private static final String OUT_COLOR = "outColor";
+    private static final String DEFAULT_HOME_NAME = "HOME";
+    private static final String DEFAULT_AWAY_NAME = "AWAY";
 
     private GameTimer timer;
     private boolean isGameClockRunning;
     private boolean newTime;
     private boolean isVibrationModeOn;
-    private boolean vibrate;
+    private static boolean vibrate;
     private boolean isAdsFreeModeEnabled;
     private boolean undo;
     private long back_pressed;
@@ -151,6 +152,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private LinearLayout adsLayout;
     private LayoutInflater layoutInflater;
     ImageButton settingButton;
+    private static boolean validClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +170,6 @@ public class MainActivity extends Activity implements OnClickListener {
             //countLayout = layoutInflater.inflate(R.layout.righty_count_layout, mainLayout, false);
         }
         //  mainLayout.addView(countLayout);*/
-        vibrate = true;
         undoStack = new Stack<>();
         initializeCountFields();
         setupButtons();
@@ -183,8 +184,8 @@ public class MainActivity extends Activity implements OnClickListener {
         isAdsFreeModeEnabled = prefs.getBoolean(ADS_FREE_MODE, false);
         autoMode = prefs.getBoolean(AUTOMODE, true);
         isVibrationModeOn = prefs.getBoolean(VIBRATION_MODE, false);
-        homeColor = prefs.getInt(HOME_COLOR, getResources().getColor(R.color.DefaultHomeColor));
-        awayColor = prefs.getInt(AWAY_COLOR, getResources().getColor(R.color.DefaultAwayColor));
+        homeColor = prefs.getInt(HOME_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
+        awayColor = prefs.getInt(AWAY_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
         ballColor = prefs.getInt(BALL_COLOR, getResources().getColor(R.color.ballDefaultColor));
         strikeColor = prefs.getInt(STRIKE_COLOR, getResources().getColor(R.color.strikeDefaultColor));
         foulColor = prefs.getInt(FOUL_COLOR, getResources().getColor(R.color.foulDefaultColor));
@@ -206,6 +207,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         fillRectangle(team1NameTextView, homeColor);
         fillRectangle(team2NameTextView, awayColor);
+
 
         // mainLayout = (LinearLayout) findViewById(R.id.countLayout);
      /*   if (prefs.getBoolean(LEFTYMODE, false)) {
@@ -233,7 +235,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
     protected static void initializeCountFields() {
 
-
         team1Score = 0;
         team2Score = 0;
         strikeCount = 0;
@@ -243,8 +244,10 @@ public class MainActivity extends Activity implements OnClickListener {
         gameClockTime = 2700;
         inning = 1;
         topOrBot = 1;
-        team1Name = "Team A";
-        team2Name = "Team B";
+        team1Name = DEFAULT_HOME_NAME;
+        team2Name = DEFAULT_AWAY_NAME;
+        vibrate = true;
+        validClick = true;
 
         currentState = new CurrentState();
         currentState.setInning(1);
@@ -263,14 +266,13 @@ public class MainActivity extends Activity implements OnClickListener {
         if (topOrBot == 1) {
             topInningImage.setVisibility(View.VISIBLE);
             bottomInningImage.setVisibility(View.INVISIBLE);
-            team1ScoreView.setTextColor(Color.RED);
-            team2ScoreView.setTextColor(Color.WHITE);
+
 
         } else if (topOrBot == 2) {
             topInningImage.setVisibility(View.INVISIBLE);
             bottomInningImage.setVisibility(View.VISIBLE);
-            team1ScoreView.setTextColor(Color.WHITE);
-            team2ScoreView.setTextColor(Color.RED);
+
+
         }
         if (ballCount >= 1) {
             fillCircle(ballCircleOne, ballColor);
@@ -567,8 +569,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     if (team1Score > 0) {
                         team1Score--;
                     }
-                }else
-                vibrate = false;
+                } else {
+                    vibrate = false;
+                    validClick = false;
+                }
                 break;
             }
             case R.id.team1ScoreView:
@@ -579,8 +583,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     else
                         team1Score = 0;
 
-                }else
-                vibrate = false;
+                } else {
+                    vibrate = false;
+                    validClick = false;
+                }
                 break;
             }
             case R.id.team2ScoreMinus: {
@@ -588,8 +594,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     if (team2Score > 0) {
                         team2Score--;
                     }
-                }else
-                vibrate = false;
+                } else {
+                    vibrate = false;
+                    validClick = false;
+                }
                 break;
             }
             case R.id.team2ScoreView:
@@ -600,8 +608,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     else
                         team2Score = 0;
 
-                } else
-                vibrate = false;
+                } else {
+                    vibrate = false;
+                    validClick = false;
+                }
                 break;
             }
             case R.id.ballButtonMinus: {
@@ -747,7 +757,7 @@ public class MainActivity extends Activity implements OnClickListener {
             vibrator.vibrate(50);
         vibrate = true;
 
-        if (!undo) {
+        if (!undo && validClick) {
             undoStack.push(currentState);
             currentState = new CurrentState();
             currentState.setTeam1Score(team1Score);
@@ -760,8 +770,10 @@ public class MainActivity extends Activity implements OnClickListener {
             currentState.setTopOrBot(topOrBot);
 
             updateFields();
-        } else
+        } else {
             undo = false;
+            validClick = true;
+        }
     }
 
     private void fillCircle(View v, int color) {

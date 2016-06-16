@@ -72,13 +72,11 @@
                         android:id="@+id/team1Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background_border"
                         android:ellipsize="end"
                         android:gravity="center_horizontal"
                         android:longClickable="true"
                         android:maxLines="1"
-                        android:text="Team A"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/PrimaryTextColor"
                         android:textSize="@dimen/TextSize"
                         android:textStyle="bold" />
 
@@ -227,13 +225,11 @@
                         android:id="@+id/team2Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/text_background_border"
                         android:ellipsize="end"
                         android:gravity="center_horizontal"
                         android:longClickable="true"
                         android:maxLines="1"
-                        android:text="Team B"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/PrimaryTextColor"
                         android:textSize="@dimen/TextSize"
                         android:textStyle="bold" />
 
