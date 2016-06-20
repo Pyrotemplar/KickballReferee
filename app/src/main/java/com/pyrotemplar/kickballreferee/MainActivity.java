@@ -186,10 +186,10 @@ public class MainActivity extends Activity implements OnClickListener {
         isVibrationModeOn = prefs.getBoolean(VIBRATION_MODE, false);
         homeColor = prefs.getInt(HOME_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
         awayColor = prefs.getInt(AWAY_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
-        ballColor = prefs.getInt(BALL_COLOR, getResources().getColor(R.color.ballDefaultColor));
-        strikeColor = prefs.getInt(STRIKE_COLOR, getResources().getColor(R.color.strikeDefaultColor));
-        foulColor = prefs.getInt(FOUL_COLOR, getResources().getColor(R.color.foulDefaultColor));
-        outColor = prefs.getInt(OUT_COLOR, getResources().getColor(R.color.outDefaultColor));
+        ballColor = prefs.getInt(BALL_COLOR, getResources().getColor(R.color.countDefaultColor));
+        strikeColor = prefs.getInt(STRIKE_COLOR, getResources().getColor(R.color.countDefaultColor));
+        foulColor = prefs.getInt(FOUL_COLOR, getResources().getColor(R.color.countDefaultColor));
+        outColor = prefs.getInt(OUT_COLOR, getResources().getColor(R.color.countDefaultColor));
         if (isAdsFreeModeEnabled) {
             mAdView.destroy();
             adsLayout.removeAllViews();
@@ -435,10 +435,10 @@ public class MainActivity extends Activity implements OnClickListener {
         outCircleTwo = findViewById(R.id.outCircleTwo);
         outCircleThree = findViewById(R.id.outCircleThree);
 
-        ballColor = getResources().getColor(R.color.ballDefaultColor);
-        strikeColor = getResources().getColor(R.color.strikeDefaultColor);
-        foulColor = getResources().getColor(R.color.foulDefaultColor);
-        outColor = getResources().getColor(R.color.outDefaultColor);
+        ballColor = getResources().getColor(R.color.countDefaultColor);
+        strikeColor = getResources().getColor(R.color.countDefaultColor);
+        foulColor = getResources().getColor(R.color.countDefaultColor);
+        outColor = getResources().getColor(R.color.countDefaultColor);
 
         gameClockEditButton = (ImageButton) findViewById(R.id.gameClockEditButton);
         gameClockPlayButton = (ImageButton) findViewById(R.id.gameClockPlayButton);

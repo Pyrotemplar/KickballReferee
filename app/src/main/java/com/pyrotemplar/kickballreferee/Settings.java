@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.SVBar;
 import com.pyrotemplar.inappbilling.util.IabHelper;
 import com.pyrotemplar.inappbilling.util.IabResult;
 import com.pyrotemplar.inappbilling.util.Purchase;
@@ -51,6 +52,7 @@ public class Settings extends Activity {
     boolean isAdsFreeModeEnabled;
 
     private ColorPicker colorPicker;
+    private SVBar svBar;
 
     private int ballColor;
     private int strikeColor;
@@ -183,7 +185,7 @@ public class Settings extends Activity {
         resetBallColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ballColor = getResources().getColor(R.color.ballDefaultColor);
+                ballColor = getResources().getColor(R.color.countDefaultColor);
                 fillCircle(findViewById(R.id.ballColorCircle), ballColor);
 
             }
@@ -191,14 +193,14 @@ public class Settings extends Activity {
         resetStrikeColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                strikeColor = getResources().getColor(R.color.strikeDefaultColor);
+                strikeColor = getResources().getColor(R.color.countDefaultColor);
                 fillCircle(findViewById(R.id.strikeColorCircle), strikeColor);
             }
         });
         resetFoulColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                foulColor = getResources().getColor(R.color.foulDefaultColor);
+                foulColor = getResources().getColor(R.color.countDefaultColor);
                 fillCircle(findViewById(R.id.foulColorCircle), foulColor);
 
             }
@@ -206,7 +208,7 @@ public class Settings extends Activity {
         resetOutColorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                outColor = getResources().getColor(R.color.outDefaultColor);
+                outColor = getResources().getColor(R.color.countDefaultColor);
                 fillCircle(findViewById(R.id.outColorCircle), outColor);
 
             }
@@ -226,6 +228,8 @@ public class Settings extends Activity {
                 feedbackIntent.setType("text/email");
                 feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{EMAIL});
                 feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Kickball Referee");
+                feedbackIntent.putExtra(Intent.EXTRA_TEXT, "My device info: \n" + DeviceInfo.getDeviceInfo() + "\nFeedback:" + "\n");
+
                 startActivity(Intent.createChooser(feedbackIntent, "Send Feedback:"));
             }
         });
@@ -306,7 +310,6 @@ public class Settings extends Activity {
         edit.putInt(FOUL_COLOR, foulColor);
         edit.putInt(OUT_COLOR, outColor);
 
-
         if (threeFouldRadioButton.isChecked())
             edit.putBoolean(THREE_FOULS_OPTION, true);
         else
@@ -326,10 +329,10 @@ public class Settings extends Activity {
 
         homeColor = sp.getInt(HOME_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
         awayColor = sp.getInt(AWAY_COLOR, getResources().getColor(R.color.PrimaryBackgroundColor));
-        ballColor = sp.getInt(BALL_COLOR, getResources().getColor(R.color.ballDefaultColor));
-        strikeColor = sp.getInt(STRIKE_COLOR, getResources().getColor(R.color.strikeDefaultColor));
-        foulColor = sp.getInt(FOUL_COLOR, getResources().getColor(R.color.foulDefaultColor));
-        outColor = sp.getInt(OUT_COLOR, getResources().getColor(R.color.outDefaultColor));
+        ballColor = sp.getInt(BALL_COLOR, getResources().getColor(R.color.countDefaultColor));
+        strikeColor = sp.getInt(STRIKE_COLOR, getResources().getColor(R.color.countDefaultColor));
+        foulColor = sp.getInt(FOUL_COLOR, getResources().getColor(R.color.countDefaultColor));
+        outColor = sp.getInt(OUT_COLOR, getResources().getColor(R.color.countDefaultColor));
 
         if (sp.getBoolean(THREE_FOULS_OPTION, false))
             threeFouldRadioButton.setChecked(true);
@@ -481,7 +484,9 @@ public class Settings extends Activity {
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
         colorPicker = (ColorPicker) promptsView.findViewById(R.id.colorPicker);
+        svBar = (SVBar) promptsView.findViewById(R.id.svbar);
         colorPicker.setShowOldCenterColor(false);
+        colorPicker.addSVBar(svBar);
 
         Button okButton = (Button) promptsView.findViewById(R.id.okButton);
         okButton.setOnClickListener(new View.OnClickListener() {

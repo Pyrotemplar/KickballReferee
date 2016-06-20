@@ -76,6 +76,8 @@
                         android:gravity="center_horizontal"
                         android:longClickable="true"
                         android:maxLines="1"
+                        android:shadowColor="#000000"
+                        android:shadowRadius="3"
                         android:textColor="@color/PrimaryTextColor"
                         android:textSize="@dimen/TextSize"
                         android:textStyle="bold" />
@@ -229,6 +231,8 @@
                         android:gravity="center_horizontal"
                         android:longClickable="true"
                         android:maxLines="1"
+                        android:shadowColor="#000000"
+                        android:shadowRadius="3"
                         android:textColor="@color/PrimaryTextColor"
                         android:textSize="@dimen/TextSize"
                         android:textStyle="bold" />

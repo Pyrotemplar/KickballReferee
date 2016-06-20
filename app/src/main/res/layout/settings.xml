@@ -128,7 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/borderMargin"
                     android:layout_marginRight="@dimen/borderMargin"
-                    android:layout_marginTop="@dimen/borderMargin"                    android:background="@drawable/round_border"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/round_border"
                     android:orientation="vertical">
 
 
@@ -173,7 +174,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/borderMargin"
                     android:layout_marginRight="@dimen/borderMargin"
-                    android:layout_marginTop="@dimen/borderMargin"                    android:background="@drawable/round_border"
+                    android:layout_marginTop="@dimen/borderMargin"
+                    android:background="@drawable/round_border"
                     android:orientation="vertical">
 
                     <TextView
@@ -195,13 +197,15 @@
                             android:id="@+id/changeHomeColorButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
                             android:layout_marginLeft="@dimen/borderMargin"
                             android:layout_marginRight="@dimen/borderMargin"
-                            android:clickable="true"
                             android:layout_weight="1"
-                            android:textColor="@color/PrimaryTextColor"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:shadowColor="#000000"
+                            android:shadowRadius="3"
                             android:text="HOME"
+                            android:textColor="@color/PrimaryTextColor"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />
 
@@ -209,10 +213,12 @@
                             android:id="@+id/changeAwayColorButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
                             android:layout_marginRight="@dimen/borderMargin"
-                            android:clickable="true"
                             android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:shadowColor="#000000"
+                            android:shadowRadius="3"
                             android:text="AWAY"
                             android:textColor="@color/PrimaryTextColor"
                             android:textSize="@dimen/TextSize"
@@ -244,10 +250,10 @@
                                 android:id="@+id/ballColorCircle"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:clickable="true"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginBottom="@dimen/circleCountMargin"
-                                android:background="@drawable/circle_border" />
+                                android:background="@drawable/circle_border"
+                                android:clickable="true" />
 
                             <Button
                                 android:id="@+id/resetBallColorButton"
@@ -282,11 +288,11 @@
                                 android:id="@+id/strikeColorCircle"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:clickable="true"
-
                                 android:layout_gravity="center_horizontal"
+
                                 android:layout_marginBottom="@dimen/circleCountMargin"
-                                android:background="@drawable/circle_border" />
+                                android:background="@drawable/circle_border"
+                                android:clickable="true" />
 
                             <Button
                                 android:id="@+id/resetStrikeColorButton"
@@ -321,11 +327,11 @@
                                 android:id="@+id/foulColorCircle"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:clickable="true"
-
                                 android:layout_gravity="center_horizontal"
+
                                 android:layout_marginBottom="@dimen/circleCountMargin"
-                                android:background="@drawable/circle_border" />
+                                android:background="@drawable/circle_border"
+                                android:clickable="true" />
 
                             <Button
                                 android:id="@+id/resetFoulColorButton"
@@ -361,11 +367,11 @@
                                 android:id="@+id/outColorCircle"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:clickable="true"
-
                                 android:layout_gravity="center_horizontal"
+
                                 android:layout_marginBottom="@dimen/circleCountMargin"
-                                android:background="@drawable/circle_border" />
+                                android:background="@drawable/circle_border"
+                                android:clickable="true" />
 
                             <Button
                                 android:id="@+id/resetOutColorButton"
