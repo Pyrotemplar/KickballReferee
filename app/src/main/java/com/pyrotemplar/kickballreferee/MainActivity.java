@@ -72,10 +72,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private int foulColor;
     private int outColor;
 
-    ImageButton team1ScoreMinusButton;
-    ImageButton team1ScorePlusButton;
-    ImageButton team2ScoreMinusButton;
-    ImageButton team2ScorePlusButton;
+    ImageButton awayTeamScoreMinusButton;
+    ImageButton awayTeamScorePlusButton;
+    ImageButton homeTeamScoreMinusButton;
+    ImageButton homeTeamScorePlusButton;
     ImageButton strikeButtonPlus;
     ImageButton strikeButtonMinus;
     ImageButton ballButtonPlus;
@@ -113,17 +113,17 @@ public class MainActivity extends Activity implements OnClickListener {
     ImageView bottomInningImage;
 
 
-    static TextView team1NameTextView;
-    static TextView team2NameTextView;
-    TextView team1ScoreView;
-    TextView team2ScoreView;
+    static TextView awayTeamNameTextView;
+    static TextView homeTeamNameTextView;
+    TextView awayTeamScoreView;
+    TextView homeTeamScoreView;
     TextView inningTextView;
     TextView timerView;
 
     AdView mAdView;
 
-    static int team1Score;
-    static int team2Score;
+    static int awayTeamScore;
+    static int homeTeamScore;
     static int strikeCount;
     static int ballCount;
     static int foulCount;
@@ -134,16 +134,13 @@ public class MainActivity extends Activity implements OnClickListener {
     private static boolean threeFoulOption;
     private static boolean autoMode;
 
-    private static String team1Name;
-    private static String team2Name;
+    private static String homeTeamName;
+    private static String awayTeamName;
 
     private static Stack<CurrentState> undoStack;
     private static CurrentState currentState;
 
-    /*    private View countLayout;
-        private LinearLayout mainLayout;
-        private LinearLayout team1Layout;
-        private LinearLayout team2Layout;*/
+
     private LinearLayout inningLayout;
     private LinearLayout ballCountLayout;
     private LinearLayout strikeCountLayout;
@@ -205,8 +202,8 @@ public class MainActivity extends Activity implements OnClickListener {
         else
             outCircleThree.setVisibility(View.VISIBLE);
 
-        fillRectangle(team1NameTextView, homeColor);
-        fillRectangle(team2NameTextView, awayColor);
+        fillRectangle(awayTeamNameTextView, awayColor);
+        fillRectangle(homeTeamNameTextView, homeColor);
 
 
         // mainLayout = (LinearLayout) findViewById(R.id.countLayout);
@@ -222,8 +219,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     protected void undoFunction() {
         currentState = undoStack.pop();
-        team1Score = currentState.getTeam1Score();
-        team2Score = currentState.getTeam2Score();
+        awayTeamScore = currentState.getAwayTeamScore();
+        homeTeamScore = currentState.getHomeTeamScore();
         strikeCount = currentState.getStrikeCount();
         ballCount = currentState.getBallCount();
         foulCount = currentState.getFoulCount();
@@ -235,8 +232,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     protected static void initializeCountFields() {
 
-        team1Score = 0;
-        team2Score = 0;
+        awayTeamScore = 0;
+        homeTeamScore = 0;
         strikeCount = 0;
         ballCount = 0;
         foulCount = 0;
@@ -244,8 +241,8 @@ public class MainActivity extends Activity implements OnClickListener {
         gameClockTime = 2700;
         inning = 1;
         topOrBot = 1;
-        team1Name = DEFAULT_HOME_NAME;
-        team2Name = DEFAULT_AWAY_NAME;
+        awayTeamName = DEFAULT_AWAY_NAME;
+        homeTeamName = DEFAULT_HOME_NAME;
         vibrate = true;
         validClick = true;
 
@@ -257,16 +254,15 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void updateFields() {
-        team1NameTextView.setText(team1Name);
-        team2NameTextView.setText(team2Name);
-        team1ScoreView.setText(String.valueOf(team1Score));
-        team2ScoreView.setText(String.valueOf(team2Score));
+        awayTeamNameTextView.setText(awayTeamName);
+        homeTeamNameTextView.setText(homeTeamName);
+        awayTeamScoreView.setText(String.valueOf(awayTeamScore));
+        homeTeamScoreView.setText(String.valueOf(homeTeamScore));
         inningTextView.setText(String.valueOf(inning));
 
         if (topOrBot == 1) {
             topInningImage.setVisibility(View.VISIBLE);
             bottomInningImage.setVisibility(View.INVISIBLE);
-
 
         } else if (topOrBot == 2) {
             topInningImage.setVisibility(View.INVISIBLE);
@@ -311,7 +307,6 @@ public class MainActivity extends Activity implements OnClickListener {
             fillCircle(strikeCircleTwo, 0);
             if (strikeCount >= 2) {
                 fillCircle(strikeCircleTwo, strikeColor);
-
 
             }
         } else {
@@ -385,20 +380,20 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void setupButtons() {
 
-        team1NameTextView = (TextView) findViewById(R.id.team1Name);
-        team2NameTextView = (TextView) findViewById(R.id.team2Name);
-        team1ScoreView = (TextView) findViewById(R.id.team1ScoreView);
-        team2ScoreView = (TextView) findViewById(R.id.team2ScoreView);
+        awayTeamNameTextView = (TextView) findViewById(R.id.awayTeamNameTextView);
+        homeTeamNameTextView = (TextView) findViewById(R.id.homeTeamNameTextView);
+        awayTeamScoreView = (TextView) findViewById(R.id.awayTeamScoreView);
+        homeTeamScoreView = (TextView) findViewById(R.id.homeTeamScoreView);
         inningTextView = (TextView) findViewById(R.id.inningCount);
         timerView = (TextView) findViewById(R.id.timerView);
 
         adsLayout = (LinearLayout) findViewById(R.id.ads_layout);
         mAdView = (AdView) findViewById(R.id.adView);
 
-        team1ScoreMinusButton = (ImageButton) findViewById(R.id.team1ScoreMinus);
-        team1ScorePlusButton = (ImageButton) findViewById(R.id.team1ScorePlus);
-        team2ScoreMinusButton = (ImageButton) findViewById(R.id.team2ScoreMinus);
-        team2ScorePlusButton = (ImageButton) findViewById(R.id.team2ScorePlus);
+        awayTeamScoreMinusButton = (ImageButton) findViewById(R.id.awayTeamScoreMinusButton);
+        awayTeamScorePlusButton = (ImageButton) findViewById(R.id.awayTeamScorePlusButton);
+        homeTeamScoreMinusButton = (ImageButton) findViewById(R.id.homeTeamScoreMinusButton);
+        homeTeamScorePlusButton = (ImageButton) findViewById(R.id.homeTeamScorePlusButton);
         strikeButtonPlus = (ImageButton) findViewById(R.id.strikeButtonPlus);
         strikeButtonMinus = (ImageButton) findViewById(R.id.strikeButtonMinus);
         ballButtonPlus = (ImageButton) findViewById(R.id.ballButtonPlus);
@@ -454,22 +449,22 @@ public class MainActivity extends Activity implements OnClickListener {
         threeFoulOption = prefs.getBoolean(THREE_FOULS_OPTION, false);
         autoMode = prefs.getBoolean(AUTOMODE, false);
 
-        team1NameTextView.setOnLongClickListener(new OnLongClickListener() {
+        awayTeamNameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 editTeamName(v);
 
-                Log.d(LOG_TAG, "Long Click for Team1NameView");
+                Log.d(LOG_TAG, "Long Click for awayTeamNameTextView");
                 return false;
             }
         });
 
-        team2NameTextView.setOnLongClickListener(new OnLongClickListener() {
+        homeTeamNameTextView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 editTeamName(v);
 
-                Log.d(LOG_TAG, "Long Click for Team2NameView");
+                Log.d(LOG_TAG, "Long Click for homeTeamNameTextView");
                 return false;
             }
         });
@@ -478,13 +473,13 @@ public class MainActivity extends Activity implements OnClickListener {
         mAdView.loadAd(adRequest);
 
         vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-        team1ScoreMinusButton.setOnClickListener(this);
-        team1ScorePlusButton.setOnClickListener(this);
-        team2ScoreMinusButton.setOnClickListener(this);
-        team2ScorePlusButton.setOnClickListener(this);
+        awayTeamScoreMinusButton.setOnClickListener(this);
+        awayTeamScorePlusButton.setOnClickListener(this);
+        homeTeamScoreMinusButton.setOnClickListener(this);
+        homeTeamScorePlusButton.setOnClickListener(this);
         inningLayout.setOnClickListener(this);
-        team1ScoreView.setOnClickListener(this);
-        team2ScoreView.setOnClickListener(this);
+        awayTeamScoreView.setOnClickListener(this);
+        homeTeamScoreView.setOnClickListener(this);
         strikeButtonPlus.setOnClickListener(this);
         strikeButtonMinus.setOnClickListener(this);
         ballButtonPlus.setOnClickListener(this);
@@ -524,10 +519,10 @@ public class MainActivity extends Activity implements OnClickListener {
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.editTextDialogUserInput);
 
-        if (v.getId() == R.id.team1Name)
-            userInput.setText(team1NameTextView.getText());
+        if (v.getId() == R.id.awayTeamNameTextView)
+            userInput.setText(awayTeamNameTextView.getText());
         else
-            userInput.setText(team2NameTextView.getText());
+            userInput.setText(homeTeamNameTextView.getText());
         // create alert dialog
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -539,13 +534,13 @@ public class MainActivity extends Activity implements OnClickListener {
                 if (isVibrationModeOn)
                     vibrator.vibrate(50);
                 if (!userInput.getText().toString().equals("")) {
-                    if (v.getId() == R.id.team1Name) {
-                        team1Name = userInput.getText().toString();
-                        team1NameTextView.setText(team1Name);
+                    if (v.getId() == R.id.awayTeamNameTextView) {
+                        awayTeamName = userInput.getText().toString();
+                        awayTeamNameTextView.setText(awayTeamName);
                         alertDialog.dismiss();
-                    } else if (v.getId() == R.id.team2Name) {
-                        team2Name = userInput.getText().toString();
-                        team2NameTextView.setText(team2Name);
+                    } else if (v.getId() == R.id.homeTeamNameTextView) {
+                        homeTeamName = userInput.getText().toString();
+                        homeTeamNameTextView.setText(homeTeamName);
                         alertDialog.dismiss();
                     }
                 }
@@ -564,10 +559,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
         switch (v.getId()) {
 
-            case R.id.team1ScoreMinus: {
+            case R.id.awayTeamScoreMinusButton: {
                 if (topOrBot == 1) {
-                    if (team1Score > 0) {
-                        team1Score--;
+                    if (awayTeamScore > 0) {
+                        awayTeamScore--;
                     }
                 } else {
                     vibrate = false;
@@ -575,13 +570,13 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
                 break;
             }
-            case R.id.team1ScoreView:
-            case R.id.team1ScorePlus: {
+            case R.id.awayTeamScorePlusButton:
+            case R.id.awayTeamScoreView: {
                 if (topOrBot == 1) {
-                    if (team1Score < 99)
-                        team1Score++;
+                    if (awayTeamScore < 99)
+                        awayTeamScore++;
                     else
-                        team1Score = 0;
+                        awayTeamScore = 0;
 
                 } else {
                     vibrate = false;
@@ -589,10 +584,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
                 break;
             }
-            case R.id.team2ScoreMinus: {
+            case R.id.homeTeamScoreMinusButton: {
                 if (topOrBot == 2) {
-                    if (team2Score > 0) {
-                        team2Score--;
+                    if (homeTeamScore > 0) {
+                        homeTeamScore--;
                     }
                 } else {
                     vibrate = false;
@@ -600,13 +595,13 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
                 break;
             }
-            case R.id.team2ScoreView:
-            case R.id.team2ScorePlus: {
+            case R.id.homeTeamScorePlusButton:
+            case R.id.homeTeamScoreView: {
                 if (topOrBot == 2) {
-                    if (team2Score < 99)
-                        team2Score++;
+                    if (homeTeamScore < 99)
+                        homeTeamScore++;
                     else
-                        team2Score = 0;
+                        homeTeamScore = 0;
 
                 } else {
                     vibrate = false;
@@ -760,8 +755,8 @@ public class MainActivity extends Activity implements OnClickListener {
         if (!undo && validClick) {
             undoStack.push(currentState);
             currentState = new CurrentState();
-            currentState.setTeam1Score(team1Score);
-            currentState.setTeam2Score(team2Score);
+            currentState.setAwayTeamScore(awayTeamScore);
+            currentState.setHomeTeamScore(homeTeamScore);
             currentState.setStrikeCount(strikeCount);
             currentState.setBallCount(ballCount);
             currentState.setFoulCount(foulCount);
@@ -887,8 +882,9 @@ public class MainActivity extends Activity implements OnClickListener {
     private void shareScore() {
         Intent shareScoreIntent = new Intent(Intent.ACTION_SEND);
         shareScoreIntent.setType("text/plain");
-        shareScoreIntent.putExtra(Intent.EXTRA_SUBJECT, "Final Score between " + team1Name + " vs. " + team2Name + " on " + date);
-        shareScoreIntent.putExtra(Intent.EXTRA_TEXT, "Final Score between " + team1Name + " vs. " + team2Name + " on " + date + "\n" + team1Name + " - " + team1Score + "\n" + team2Name + " - " + team2Score);
+        shareScoreIntent.putExtra(Intent.EXTRA_SUBJECT, "Final Score between " + awayTeamName + " vs. " + homeTeamName + " on " + date);
+        shareScoreIntent.putExtra(Intent.EXTRA_TEXT, "Final Score between " + awayTeamName + " vs. " + homeTeamName + " on " + date + "\n" + awayTeamName +
+                " - " + awayTeamScore + "\n" + homeTeamName + " - " + homeTeamScore);
         startActivity(Intent.createChooser(shareScoreIntent, "Share Game Score:"));
     }
 

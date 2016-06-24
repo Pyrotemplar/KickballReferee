@@ -5,8 +5,8 @@ package com.pyrotemplar.kickballreferee;
  */
 public class CurrentState {
 
-   private int team1Score;
-    private int team2Score;
+   private int awayTeamScore;
+    private int homeTeamScore;
     private  int strikeCount;
     private int ballCount;
     private int foulCount;
@@ -14,20 +14,20 @@ public class CurrentState {
     private int inning;
     private int topOrBot;
 
-    public int getTeam1Score() {
-        return team1Score;
+    public int getAwayTeamScore() {
+        return awayTeamScore;
     }
 
-    public void setTeam1Score(int team1Score) {
-        this.team1Score = team1Score;
+    public void setAwayTeamScore(int awayTeamScore) {
+        this.awayTeamScore = awayTeamScore;
     }
 
-    public int getTeam2Score() {
-        return team2Score;
+    public int getHomeTeamScore() {
+        return homeTeamScore;
     }
 
-    public void setTeam2Score(int team2Score) {
-        this.team2Score = team2Score;
+    public void setHomeTeamScore(int homeTeamScore) {
+        this.homeTeamScore = homeTeamScore;
     }
 
     public int getStrikeCount() {

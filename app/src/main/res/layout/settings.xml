@@ -193,21 +193,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/changeHomeColorButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/borderMargin"
-                            android:layout_marginRight="@dimen/borderMargin"
-                            android:layout_weight="1"
-                            android:clickable="true"
-                            android:gravity="center_horizontal"
-                            android:shadowColor="#000000"
-                            android:shadowRadius="3"
-                            android:text="HOME"
-                            android:textColor="@color/PrimaryTextColor"
-                            android:textSize="@dimen/TextSize"
-                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/changeAwayColorButton"
@@ -220,6 +205,22 @@
                             android:shadowColor="#000000"
                             android:shadowRadius="3"
                             android:text="AWAY"
+                            android:textColor="@color/PrimaryTextColor"
+                            android:textSize="@dimen/TextSize"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/changeHomeColorButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/borderMargin"
+                            android:layout_marginRight="@dimen/borderMargin"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center_horizontal"
+                            android:shadowColor="#000000"
+                            android:shadowRadius="3"
+                            android:text="HOME"
                             android:textColor="@color/PrimaryTextColor"
                             android:textSize="@dimen/TextSize"
                             android:textStyle="bold" />
