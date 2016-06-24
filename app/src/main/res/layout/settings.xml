@@ -435,7 +435,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5sp"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id">
+            ads:adUnitId="@string/banner_ad_unit_id_test">
 
         </com.google.android.gms.ads.AdView>
     </RelativeLayout>
